@@ -3,148 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eclaté Egypt | Official Store</title>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Cairo:wght@300;400;700&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
+    <title>Eclaté - Elegant Bags</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --gold: #c5a059; --black: #0a0a0a; --grey: #1a1a1a; --white: #ffffff; }
-        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-        body { font-family: 'Cairo', sans-serif; background-color: var(--black); color: var(--white); }
-
-        /* تعديل القائمة عشان تظهر بوضوح */
-        nav {
-            position: fixed; 
-            top: 0; 
-            width: 100%; 
-            background: #000000; /* خلفية سوداء صريحة */
-            padding: 15px 5%; 
-            display: flex; 
-            justify-content: space-between;
-            align-items: center; 
-            z-index: 9999; /* أعلى طبقة */
-            border-bottom: 1px solid var(--gold);
-        }
-        .logo-text { font-family: 'Montserrat', sans-serif; font-size: 20px; color: var(--gold); text-decoration: none; letter-spacing: 3px; font-weight: 600; }
+        :root { --gold: #d4af37; --black: #1a1a1a; --white: #ffffff; --gray: #f4f4f4; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: #fff; overflow-x: hidden; text-align: right; }
         
-        .nav-links { display: flex; list-style: none; }
-        .nav-links li { margin-right: 20px; }
-        .nav-links a { color: var(--white); text-decoration: none; font-size: 14px; font-weight: 400; }
-        .nav-links a:hover { color: var(--gold); }
+        /* Header & Logo */
+        header { background: var(--black); color: white; padding: 25px 20px; text-align: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.4); }
+        .logo { font-size: 2.5rem; letter-spacing: 8px; color: var(--gold); margin: 0; font-weight: bold; text-transform: uppercase; }
+        .tagline { font-size: 0.9rem; color: #ccc; margin-top: 5px; letter-spacing: 2px; }
 
-        .hero {
-            height: 70vh; 
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('bag1.jpg') center/cover;
-            display: flex; flex-direction: column; justify-content: center; align-items: center; 
-            text-align: center;
-            padding-top: 80px; /* عشان الكلام ميبقاش ورا الناف بار */
-        }
+        /* Product Grid */
+        .container { max-width: 1200px; margin: auto; padding: 30px 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .card { border: 1px solid #eee; padding: 15px; text-align: center; border-radius: 15px; transition: 0.4s; background: #fff; position: relative; }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); border-color: var(--gold); }
+        .card img { width: 100%; height: 380px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; background: #f9f9f9; }
+        .card h3 { font-size: 1.2rem; margin: 10px 0; color: var(--black); }
+        .price { color: var(--gold); font-weight: bold; font-size: 1.5rem; margin-bottom: 15px; display: block; }
         
-        .section-title { font-family: 'Amiri', serif; font-size: 2.5rem; text-align: center; color: var(--gold); margin: 60px 0; }
+        /* Buttons */
+        .btn-add { background: var(--black); color: white; padding: 14px; border: none; width: 100%; cursor: pointer; border-radius: 8px; font-size: 1.1rem; transition: 0.3s; font-weight: bold; }
+        .btn-add:hover { background: var(--gold); color: var(--black); }
 
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; max-width: 1300px; margin: 0 auto; padding: 20px; }
-        .product-card { background: var(--grey); border: 1px solid #222; transition: 0.4s; overflow: hidden; text-align: center; }
-        .product-img { width: 100%; height: 380px; object-fit: cover; }
-        .product-info { padding: 20px; }
-        .product-price { color: var(--gold); font-weight: bold; font-size: 1.2rem; margin-bottom: 15px; }
-        
-        .btn-order { background: var(--gold); color: #000; border: none; padding: 12px 25px; font-weight: bold; cursor: pointer; width: 100%; font-family: 'Cairo'; }
+        /* Floating Cart Icon */
+        .cart-icon { position: fixed; bottom: 30px; left: 30px; background: var(--gold); color: white; width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; cursor: pointer; box-shadow: 0 8px 25px rgba(0,0,0,0.3); z-index: 2000; transition: 0.3s; }
+        .cart-icon:hover { transform: scale(1.1); }
+        .cart-count { position: absolute; top: 0; right: 0; background: #ff3b3b; color: white; border-radius: 50%; width: 26px; height: 26px; font-size: 14px; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 2px solid white; }
 
-        #orderModal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); z-index: 10000; justify-content: center; align-items: center;
-        }
-        .modal-content { background: var(--grey); padding: 30px; width: 90%; max-width: 400px; border: 1px solid var(--gold); text-align: center; }
-        .modal-content input { width: 100%; padding: 12px; margin-bottom: 15px; background: #000; border: 1px solid #333; color: #fff; text-align: right; font-family: 'Cairo'; }
+        /* Cart Sidebar */
+        #cart-sidebar { position: fixed; top: 0; left: -450px; width: 380px; height: 100%; background: white; box-shadow: 10px 0 30px rgba(0,0,0,0.2); transition: 0.5s ease-in-out; z-index: 3000; padding: 30px; overflow-y: auto; }
+        #cart-sidebar.open { left: 0; }
+        .cart-header { border-bottom: 2px solid var(--gold); padding-bottom: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding: 15px 0; }
+        .remove-item { color: #ff3b3b; border: none; background: none; cursor: pointer; font-size: 0.9rem; text-decoration: underline; }
 
-        footer { padding: 40px; text-align: center; border-top: 1px solid #222; font-size: 11px; color: #666; }
+        /* Checkout Button */
+        .checkout-btn { background: #25d366; color: white; border: none; width: 100%; padding: 20px; font-size: 1.3rem; cursor: pointer; margin-top: 30px; border-radius: 10px; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 12px; transition: 0.3s; }
+        .checkout-btn:hover { background: #1ebe57; transform: scale(1.02); }
 
-        /* للموبايل */
-        @media (max-width: 768px) {
-            .nav-links { display: none; } /* القوائم بتختفي في الموبايل عشان متبقاش زحمة، لو عاوزها تظهر قولي */
-            .hero h1 { font-size: 2.5rem; }
-        }
+        /* Footer */
+        footer { background: var(--black); color: white; padding: 60px 20px; text-align: center; margin-top: 80px; }
+        .social-links { margin-bottom: 30px; }
+        .social-links a { color: white; font-size: 2.2rem; margin: 0 25px; transition: 0.3s; display: inline-block; }
+        .social-links a:hover { color: var(--gold); transform: translateY(-5px); }
+        .copyright { font-size: 0.9rem; color: #777; margin-top: 20px; }
+
+        /* Loader */
+        .loader { text-align: center; padding: 100px; font-size: 1.5rem; color: var(--gold); }
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="#" class="logo-text">ECLATÉ</a>
-        <ul class="nav-links">
-            <li><a href="#shop">المتجر</a></li>
-            <li><a href="#policy">الاستبدال</a></li>
-            <li><a href="https://wa.me/201011590702">تواصل معنا</a></li>
-        </ul>
-    </nav>
+<header>
+    <h1 class="logo">ECLATÉ</h1>
+    <div class="tagline">أناقة تليق بكِ</div>
+</header>
 
-    <section class="hero" data-aos="fade-in">
-        <h1 data-aos="zoom-in">ECLATÉ</h1>
-        <p data-aos="fade-up" data-aos-delay="500">Luxury Handbags | فخامة تليق بكِ</p>
-    </section>
-
-    <section id="shop">
-        <h2 class="section-title" data-aos="fade-up">The Collection</h2>
-        <div class="product-grid" id="product-container">
-            <script>
-                const container = document.getElementById('product-container');
-                for (let i = 1; i <= 12; i++) {
-                    container.innerHTML += `
-                        <div class="product-card" data-aos="fade-up">
-                            <img src="bag${i}.jpg" class="product-img" onerror="this.src='https://via.placeholder.com/400x500?text=Bag+${i}'">
-                            <div class="product-info">
-                                <p style="margin-bottom:10px; font-weight:600">ECLATÉ BAG #${i}</p>
-                                <p class="product-price">1,000 EGP</p>
-                                <button class="btn-order" onclick="openOrder('Bag #${i}')">اطلبي الآن</button>
-                            </div>
-                        </div>
-                    `;
-                }
-            </script>
-        </div>
-    </section>
-
-    <section id="policy" style="padding: 60px 5%; background: #050505;">
-        <h2 class="section-title">سياسة الاستبدال</h2>
-        <div style="max-width: 700px; margin: 0 auto; text-align: center; color: #ccc;">
-            <p>الاستبدال والاسترجاع خلال 14 يوماً بشرط الحالة الأصلية.</p>
-        </div>
-    </section>
-
-    <div id="orderModal">
-        <div class="modal-content">
-            <h3 style="color:var(--gold); margin-bottom:20px">بيانات الطلب</h3>
-            <input type="text" id="custName" placeholder="الاسم بالكامل">
-            <input type="text" id="custAddress" placeholder="العنوان بالتفصيل">
-            <input type="text" id="custPhone" placeholder="رقم الموبايل">
-            <button class="btn-order" onclick="sendToWhatsapp()">تأكيد الطلب</button>
-            <button style="background:none; border:none; color:#666; margin-top:15px; cursor:pointer" onclick="closeOrder()">إلغاء</button>
-        </div>
+<div class="container">
+    <div class="grid" id="products-grid">
+        <div class="loader">جاري تحميل أحدث الموديلات...</div>
     </div>
+</div>
 
-    <footer><p>© 2026 ECLATÉ EGYPT. ALL RIGHTS RESERVED.</p></footer>
+<div class="cart-icon" onclick="toggleCart()">
+    <i class="fas fa-shopping-bag"></i>
+    <div class="cart-count" id="cart-count">0</div>
+</div>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({ duration: 1000, once: true });
-        let selectedBag = "";
-        const myNum = "201011590702";
+<div id="cart-sidebar">
+    <div class="cart-header">
+        <h2 style="margin:0;">حقيبة التسوق</h2>
+        <span onclick="toggleCart()" style="cursor:pointer; font-size: 1.5rem;">&times;</span>
+    </div>
+    <div id="cart-items"></div>
+    <div style="margin-top: 30px; background: var(--gray); padding: 15px; border-radius: 8px;">
+        <h3 style="display: flex; justify-content: space-between; margin:0;">
+            <span>الإجمالي:</span>
+            <span><span id="cart-total">0</span> ج.م</span>
+        </h3>
+    </div>
+    <button class="checkout-btn" onclick="sendWhatsApp()">
+        <i class="fab fa-whatsapp"></i> إتمام الطلب عبر واتساب
+    </button>
+</div>
 
-        function openOrder(name) {
-            selectedBag = name;
-            document.getElementById('orderModal').style.display = 'flex';
+<footer>
+    <div class="social-links">
+        <a href="https://www.instagram.com/eclate_eg/" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@eclate_eg" target="_blank"><i class="fab fa-tiktok"></i></a>
+    </div>
+    <p>Elegant Bags for Elegant Women</p>
+    <div class="copyright">&copy; 2026 Eclaté EG. All Rights Reserved.</div>
+</footer>
+
+<script>
+    let cart = [];
+    let products = [];
+    // لينك الشيت الخاص بك بصيغة CSV
+    const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQGP488InXYjOP4SbgDmeNgPapkgFyMpjWr0ShvACi56yOHNEY3VsdLP3tEHXuFXc3FRRjgaFb2QktM/pub?output=csv";
+
+    // جلب البيانات من Google Sheets
+    async function fetchProducts() {
+        try {
+            const response = await fetch(sheetURL);
+            const data = await response.text();
+            const rows = data.split('\n').slice(1);
+            
+            products = rows.map(row => {
+                const cols = row.split(',');
+                return {
+                    id: cols[0]?.trim(),
+                    name: cols[1]?.trim(),
+                    price: parseInt(cols[2]?.trim()) || 0,
+                    img: cols[3]?.trim()
+                };
+            }).filter(p => p.name && p.name.length > 1);
+
+            displayProducts();
+        } catch (error) {
+            console.error("Error:", error);
+            document.getElementById('products-grid').innerHTML = "حدث خطأ في الاتصال بالمخزن. يرجى تحديث الصفحة.";
         }
-        function closeOrder() {
-            document.getElementById('orderModal').style.display = 'none';
+    }
+
+    function displayProducts() {
+        const grid = document.getElementById('products-grid');
+        if(products.length === 0) {
+            grid.innerHTML = "<p>لا توجد منتجات متوفرة حالياً.</p>";
+            return;
         }
-        function sendToWhatsapp() {
-            const name = document.getElementById('custName').value;
-            const addr = document.getElementById('custAddress').value;
-            const phone = document.getElementById('custPhone').value;
-            if(!name || !addr || !phone) return alert("برجاء ملء البيانات");
-            const msg = `أريد طلب:%0Aالمنتج: ${selectedBag}%0Aالاسم: ${name}%0Aالعنوان: ${addr}%0Aالتليفون: ${phone}`;
-            window.open(`https://wa.me/${myNum}?text=${msg}`, '_blank');
+        grid.innerHTML = products.map(p => `
+            <div class="card">
+                <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/350x450?text=Eclate+Bag'">
+                <h3>${p.name}</h3>
+                <span class="price">${p.price} ج.م</span>
+                <button class="btn-add" onclick="addToCart('${p.id}')">إضافة للحقيبة</button>
+            </div>
+        `).join('');
+    }
+
+    function addToCart(id) {
+        const product = products.find(p => p.id === id);
+        if(product) {
+            cart.push(product);
+            updateCart();
+            if(!document.getElementById('cart-sidebar').classList.contains('open')) {
+                toggleCart();
+            }
         }
-    </script>
+    }
+
+    function updateCart() {
+        const cartItems = document.getElementById('cart-items');
+        const cartCount = document.getElementById('cart-count');
+        const cartTotal = document.getElementById('cart-total');
+        
+        cartCount.innerText = cart.length;
+        cartItems.innerHTML = cart.map((item, index) => `
+            <div class="cart-item">
+                <div style="text-align: right;">
+                    <div style="font-weight: bold; color: var(--black);">${item.name}</div>
+                    <div style="color: var(--gold); font-size: 0.95rem;">${item.price} ج.م</div>
+                </div>
+                <button class="remove-item" onclick="removeFromCart(${index})">حذف</button>
+            </div>
+        `).join('');
+        
+        const total = cart.reduce((sum, item) => sum + item.price, 0);
+        cartTotal.innerText = total.toLocaleString();
+    }
+
+    function removeFromCart(index) {
+        cart.splice(index, 1);
+        updateCart();
+    }
+
+    function toggleCart() {
+        document.getElementById('cart-sidebar').classList.toggle('open');
+    }
+
+    function sendWhatsApp() {
+        if(cart.length === 0) {
+            alert("حقيبة التسوق فارغة!");
+            return;
+        }
+        
+        let message = "مرحباً Eclaté، أود طلب الموديلات التالية:%0a%0a";
+        cart.forEach((item, i) => {
+            message += `${i+1}- *${item.name}* (${item.price} ج.م)%0a`;
+        });
+        message += `%0a*الإجمالي: ${document.getElementById('cart-total').innerText} ج.م*`;
+        message += `%0a%0aأرجو الرد لتأكيد البيانات وعنوان التوصيل.`;
+        
+        // رقم الواتساب الخاص بك: 01011590702
+        const whatsappNumber = "201011590702";
+        window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
+    }
+
+    // تشغيل الجلب عند فتح الموقع
+    fetchProducts();
+</script>
+
 </body>
 </html>
