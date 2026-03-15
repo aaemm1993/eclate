@@ -3,99 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eclaté - Elegant Bags</title>
+    <title>Eclaté - Elegant Bags & Accessories</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --gold: #d4af37; --black: #111; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: #f9f9f9; color: var(--black); }
+        :root { --gold: #d4af37; --black: #111; --white: #ffffff; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: #f9f9f9; color: var(--black); overflow-x: hidden; }
         
         /* Navbar */
-        nav { background: var(--black); padding: 15px 5%; display: flex; justify-content: center; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 2px solid var(--gold); }
-        .nav-logo { color: var(--gold); font-size: 1.8rem; font-weight: bold; letter-spacing: 4px; text-decoration: none; }
+        nav { background: var(--black); padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--gold); position: sticky; top: 0; z-index: 1000; }
+        .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .nav-logo-img { height: 40px; width: auto; }
+        .nav-logo-text { color: var(--gold); font-size: 1.4rem; font-weight: bold; letter-spacing: 2px; }
+        .nav-socials a { color: var(--gold); margin-left: 15px; font-size: 1.2rem; transition: 0.3s; }
+        .nav-socials a:hover { color: white; }
 
-        /* الوجهة (Hero Section) - رجعت تاني */
+        /* Hero Section */
         .hero { 
-            height: 65vh; 
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('hero.jpg'); 
-            background-size: cover; 
-            background-position: center; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center; 
-            color: var(--gold); 
-            text-align: center; 
+            height: 80vh; 
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('hero.jpg'); 
+            background-size: cover; background-position: center; 
+            display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            color: var(--gold); text-align: center; 
         }
-        .hero h1 { font-size: 4rem; margin: 0; letter-spacing: 10px; }
-        .hero p { color: #fff; font-size: 1.2rem; letter-spacing: 2px; margin-top: 10px; }
+        .hero-logo { width: 150px; height: auto; margin-bottom: 20px; animation: fadeInDown 1.2s ease-out; }
+        .hero h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); margin: 0; letter-spacing: 12px; font-weight: bold; animation: fadeInUp 1s ease-out; }
+        .hero p { color: #fff; font-size: 1.2rem; margin-top: 10px; opacity: 0.9; letter-spacing: 2px; }
 
-        /* Grid */
-        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        /* Grid & Cards */
+        .container { max-width: 1200px; margin: 50px auto; padding: 0 20px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
-
-        /* Card Style */
-        .card { background: #fff; border-radius: 8px; overflow: hidden; position: relative; transition: 0.3s; cursor: pointer; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .card:hover { transform: translateY(-5px); }
-        .card img { width: 100%; height: 350px; object-fit: cover; }
-        .card-info { padding: 20px; }
-        .card-info h3 { margin: 10px 0; font-size: 1.1rem; }
-        .price { color: var(--gold); font-weight: bold; font-size: 1.3rem; display: block; margin-bottom: 15px; }
-        
-        /* Button */
-        .btn-order { background: var(--black); color: var(--gold); border: 1px solid var(--gold); padding: 12px; width: 100%; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .btn-order:hover { background: var(--gold); color: var(--black); }
-
-        /* حركة الإيموشن */
-        .reaction { position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); font-size: 3.5rem; opacity: 0; pointer-events: none; z-index: 10; }
-        .animate-emoji { animation: popUp 0.8s ease-out forwards; }
-        @keyframes popUp { 
-            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); } 
-            50% { opacity: 1; transform: translate(-50%, -80%) scale(1.2); } 
-            100% { opacity: 0; transform: translate(-50%, -120%) scale(1); } 
+        .card { 
+            background: #fff; border-radius: 12px; overflow: hidden; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05); border: 1px solid #eee;
+            opacity: 0; animation: fadeInUp 0.8s ease-out forwards;
         }
+        .card img { width: 100%; height: 380px; object-fit: cover; }
+        .card-info { padding: 20px; text-align: center; }
+        .price { color: var(--gold); font-weight: bold; font-size: 1.3rem; display: block; margin-bottom: 15px; }
+        .btn-order { background: var(--black); color: var(--gold); border: 1px solid var(--gold); padding: 12px; width: 100%; font-weight: bold; cursor: pointer; text-decoration: none; display: inline-block; border-radius: 5px; }
 
-        #loading { text-align: center; font-size: 1.2rem; padding: 50px; color: var(--gold); }
+        /* Footer */
+        footer { background: var(--black); color: var(--gold); padding: 40px; text-align: center; margin-top: 50px; }
+        .footer-socials { margin-bottom: 20px; }
+        .footer-socials a { color: var(--gold); font-size: 2rem; margin: 0 15px; transition: 0.3s; }
+        .footer-socials a:hover { transform: scale(1.2); color: white; }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-<nav><a href="#" class="nav-logo">ECLATÉ</a></nav>
+<nav>
+    <a href="#" class="nav-brand">
+        <img src="logo.png" alt="Logo" class="nav-logo-img" onerror="this.style.display='none'">
+        <span class="nav-logo-text">ECLATÉ</span>
+    </a>
+    <div class="nav-socials">
+        <a href="https://instagram.com/YOUR_USER" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://tiktok.com/@YOUR_USER" target="_blank"><i class="fab fa-tiktok"></i></a>
+    </div>
+</nav>
 
 <section class="hero">
+    <img src="logo.png" alt="Eclaté Logo" class="hero-logo" onerror="this.style.display='none'">
     <h1>ECLATÉ</h1>
-    <p>Elegant Bags & Accessories</p>
+    <p>أناقة تليق بكِ</p>
 </section>
 
 <div class="container">
-    <div id="loading">جاري سحب أحدث المنتجات من الشيت...</div>
     <div class="grid" id="products-grid"></div>
 </div>
 
+<footer>
+    <div class="footer-socials">
+        <a href="https://instagram.com/YOUR_USER" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://tiktok.com/@YOUR_USER" target="_blank"><i class="fab fa-tiktok"></i></a>
+        <a href="https://wa.me/201016629166" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    </div>
+    <p>&copy; 2026 ECLATÉ. All rights reserved.</p>
+</footer>
+
 <script>
     const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQGP488InXYjOP4SbgDmeNgPapkgFyMpjWr0ShvACi56yOHNEY3VsdLP3tEHXuFXc3FRRjgaFb2QktM/pub?output=csv';
+    const whatsappNumber = '201016629166';
 
     async function loadData() {
-        try {
-            const response = await fetch(sheetUrl);
-            const csvData = await response.text();
-            const rows = csvData.split('\n').slice(1);
-            
-            const grid = document.getElementById('products-grid');
-            document.getElementById('loading').style.display = 'none';
-            grid.innerHTML = '';
+        const response = await fetch(sheetUrl);
+        const csvData = await response.text();
+        const rows = csvData.split('\n').slice(1);
+        const grid = document.getElementById('products-grid');
+        grid.innerHTML = '';
 
-            rows.forEach(row => {
-                const cols = row.split(',');
-                if (cols.length >= 4) {
-                    // الترتيب حسب شيت جوجل بتاعك: ID[0], Name[1], Price[2], Image[3]
-                    const name = cols[1];
-                    const price = cols[2];
-                    const img = cols[3].trim();
-                    
-                    const card = document.createElement('div');
-                    card.className = 'card';
-                    card.onclick = () => {
-                        const emo = card.querySelector('.reaction');
-                        emo.classList.add('animate-emoji');
-                        setTimeout(() => emo.classList.remove('animate-emoji'), 800);
-                    };
-                    card.innerHTML = `
+        rows.forEach((row, index) => {
+            const cols = row.split(',');
+            if (cols.length >= 4) {
+                const name = cols[1].trim();
+                const price = cols[2].trim();
+                const img = cols[3].trim();
+                const waMessage = encodeURIComponent(`أهلاً Eclaté، أرغب في طلب: ${name}`);
+
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.style.animationDelay = `${index * 0.1}s`; 
+                card.innerHTML = `
+                    <img src="${img}">
+                    <div class="card-info">
+                        <h3>${name}</h3>
+                        <span class="price">${price} EGP</span>
+                        <a href="https://wa.me/${whatsappNumber}?text=${waMessage}" class="btn-order">طلب عبر واتساب</a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            }
+        });
+    }
+    loadData();
+</script>
+</body>
+</html>
