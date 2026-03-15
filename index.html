@@ -3,111 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eclaté - Elegant Bags</title>
+    <title>Eclaté - Live Catalog</title>
     <style>
-        :root { --gold: #d4af37; --black: #111; --white: #ffffff; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: #f9f9f9; color: var(--black); }
-        
-        /* Navbar */
-        nav { background: var(--black); padding: 15px 5%; display: flex; justify-content: center; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 2px solid var(--gold); }
-        .nav-logo { color: var(--gold); font-size: 1.8rem; font-weight: bold; letter-spacing: 4px; text-decoration: none; }
-
-        /* Hero Section */
-        .hero { height: 60vh; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('hero.jpg'); background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; color: var(--gold); text-align: center; }
-        .hero h1 { font-size: 3.5rem; margin: 0; letter-spacing: 8px; }
-        .hero p { color: #fff; font-size: 1.2rem; letter-spacing: 2px; }
-
-        /* Grid */
-        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
-
-        /* Card Style */
-        .card { background: var(--white); border: 1px solid #eee; border-radius: 8px; overflow: hidden; position: relative; transition: 0.3s; cursor: pointer; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
-        .card img { width: 100%; height: 350px; object-fit: cover; border-bottom: 1px solid #eee; }
-        .card-info { padding: 20px; }
-        .card-info h3 { margin: 10px 0; font-size: 1.1rem; color: #333; }
-        .price { color: var(--gold); font-weight: bold; font-size: 1.3rem; display: block; margin-bottom: 15px; }
-        
-        /* Button */
-        .btn-order { background: var(--black); color: var(--gold); border: 1px solid var(--gold); padding: 10px 20px; width: 100%; font-weight: bold; cursor: pointer; transition: 0.3s; border-radius: 4px; }
-        .btn-order:hover { background: var(--gold); color: var(--black); }
-
-        /* Reaction Animation */
-        .reaction { position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); font-size: 3.5rem; opacity: 0; pointer-events: none; z-index: 10; }
-        .animate-emoji { animation: popUp 0.8s ease-out forwards; }
-        @keyframes popUp { 
-            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); } 
-            50% { opacity: 1; transform: translate(-50%, -80%) scale(1.2); } 
-            100% { opacity: 0; transform: translate(-50%, -120%) scale(1); } 
-        }
-
-        #loading { text-align: center; font-size: 1.2rem; padding: 50px; color: var(--gold); }
+        :root { --gold: #d4af37; --black: #111; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: #f9f9f9; text-align: center; }
+        nav { background: var(--black); padding: 15px; border-bottom: 2px solid var(--gold); }
+        .nav-logo { color: var(--gold); font-size: 1.8rem; font-weight: bold; letter-spacing: 3px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; padding: 30px; }
+        .card { background: #fff; border-radius: 8px; overflow: hidden; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: 0.3s; }
+        .card img { width: 100%; height: 320px; object-fit: cover; }
+        .card-info { padding: 15px; }
+        .price { color: var(--gold); font-weight: bold; font-size: 1.2rem; display: block; margin: 10px 0; }
+        .btn-order { background: var(--black); color: var(--gold); border: 1px solid var(--gold); padding: 10px; width: 100%; cursor: pointer; font-weight: bold; }
+        .reaction { position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); font-size: 3rem; opacity: 0; pointer-events: none; }
+        .animate-emoji { animation: popUp 0.8s ease-out; }
+        @keyframes popUp { 0% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 0; transform: translate(-50%, -120%) scale(1.5); } }
     </style>
 </head>
 <body>
 
-<nav><a href="#" class="nav-logo">ECLATÉ</a></nav>
+<nav><div class="nav-logo">ECLATÉ</div></nav>
 
-<section class="hero">
-    <h1>ECLATÉ</h1>
-    <p>Elegant Bags & Accessories</p>
-</section>
-
-<div class="container">
-    <div id="loading">جاري سحب أحدث المنتجات من الشيت...</div>
-    <div class="grid" id="products-grid"></div>
-</div>
+<div class="grid" id="products-grid">جاري تحميل المنتجات...</div>
 
 <script>
-    // لينك الشيت الخاص بك بصيغة CSV للربط المباشر
     const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQGP488InXYjOP4SbgDmeNgPapkgFyMpjWr0ShvACi56yOHNEY3VsdLP3tEHXuFXc3FRRjgaFb2QktM/pub?output=csv';
 
-    async function fetchInventory() {
-        try {
-            const response = await fetch(sheetUrl);
-            const csvData = await response.text();
-            const rows = csvData.split('\n').slice(1); // تجاهل الصف الأول (العناوين)
-            
-            const grid = document.getElementById('products-grid');
-            const loading = document.getElementById('loading');
-            grid.innerHTML = '';
-            loading.style.display = 'none';
+    async function loadData() {
+        const response = await fetch(sheetUrl);
+        const data = await response.text();
+        const rows = data.split('\n').slice(1);
+        const grid = document.getElementById('products-grid');
+        grid.innerHTML = '';
 
-            rows.forEach(row => {
-                const cols = row.split(',');
-                if (cols.length >= 5) {
-                    const [type, category, img, price, name] = cols;
-                    
-                    const card = document.createElement('div');
-                    card.className = 'card';
-                    card.onclick = () => showEmoji(card);
-                    card.innerHTML = `
-                        <div class="reaction">❤️</div>
-                        <img src="${img.trim()}" alt="${name}" onerror="this.src='https://via.placeholder.com/350x350?text=Eclate+Bag'">
-                        <div class="card-info">
-                            <h3>${name.trim()}</h3>
-                            <span class="price">${price.trim()} EGP</span>
-                            <button class="btn-order">طلب الآن</button>
-                        </div>
-                    `;
-                    grid.appendChild(card);
-                }
-            });
-        } catch (error) {
-            console.error('Error fetching sheet:', error);
-            document.getElementById('loading').innerText = 'حدث خطأ أثناء تحميل البيانات.';
-        }
+        rows.forEach(row => {
+            const cols = row.split(',');
+            if (cols.length < 5) return;
+
+            // الترتيب الصحيح حسب صورة الشيت بتاعك:
+            // [0]=ID, [1]=Name, [2]=Price, [3]=Image, [4]=Category, [5]=Type
+            const name = cols[1];
+            const price = cols[2];
+            const imgName = cols[3].trim();
+
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.onclick = () => {
+                const emo = card.querySelector('.reaction');
+                emo.classList.add('animate-emoji');
+                setTimeout(() => emo.classList.remove('animate-emoji'), 800);
+            };
+
+            card.innerHTML = `
+                <div class="reaction">❤️</div>
+                <img src="${imgName}" onerror="this.src='https://via.placeholder.com/350?text=${name}'">
+                <div class="card-info">
+                    <h3>${name}</h3>
+                    <span class="price">${price} EGP</span>
+                    <button class="btn-order">طلب الآن</button>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
     }
-
-    function showEmoji(card) {
-        const emoji = card.querySelector('.reaction');
-        emoji.classList.add('animate-emoji');
-        setTimeout(() => { emoji.classList.remove('animate-emoji'); }, 800);
-    }
-
-    // تشغيل السحب عند فتح الصفحة
-    fetchInventory();
+    loadData();
 </script>
 </body>
 </html>
