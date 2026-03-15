@@ -6,20 +6,23 @@
     <title>Eclaté - Elegant Bags & Accessories</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* التعديل الجوهري في درجة اللون الذهبي لتطابق اللوجو */
         :root { 
-            --gold: #d4af37; /* درجة الذهبي المطابقة للوجو */
+            /* درجة الذهبي المستخرجة من اللوجو الخاص بك */
+            --gold: #d4af37; 
             --black: #0a0a0a; 
             --white: #ffffff; 
-            --bg-light: #f8f8f8;
+            --bg-light: #f9f9f9;
         }
 
         body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--bg-light); color: var(--black); overflow-x: hidden; }
         
         /* Navbar */
         nav { background: var(--black); padding: 12px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--gold); position: sticky; top: 0; z-index: 1000; }
-        .nav-brand img { height: 45px; width: auto; }
-        .nav-socials a { color: var(--gold); margin-right: 18px; font-size: 1.3rem; transition: 0.3s; }
+        .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .nav-logo-img { height: 40px; width: auto; }
+        .nav-logo-text { color: var(--gold); font-size: 1.6rem; font-weight: bold; letter-spacing: 3px; }
+        
+        .nav-socials a { color: var(--gold); margin-right: 15px; font-size: 1.3rem; transition: 0.3s; }
         .nav-socials a:hover { color: var(--white); }
 
         /* Hero Section */
@@ -30,42 +33,37 @@
             display: flex; flex-direction: column; justify-content: center; align-items: center; 
             text-align: center; padding: 0 20px;
         }
-        .hero-logo { width: clamp(200px, 35vw, 350px); height: auto; margin-bottom: 20px; animation: fadeInDown 1.2s ease-out; }
-        /* لون النص تحت اللوجو بقى نفس درجة الذهبي */
-        .hero p { color: var(--gold); font-size: 1.4rem; margin-top: 15px; letter-spacing: 5px; font-weight: bold; }
+        .hero-logo { width: 140px; height: auto; margin-bottom: 10px; animation: fadeInDown 1.2s ease-out; }
+        .hero h1 { color: var(--gold); font-size: clamp(3rem, 10vw, 5rem); margin: 0; letter-spacing: 12px; font-weight: 900; animation: fadeInUp 1s ease-out; }
+        .hero p { color: var(--white); font-size: 1.3rem; margin-top: 10px; letter-spacing: 4px; opacity: 0.9; }
 
-        /* Products Grid */
+        /* Grid */
         .container { max-width: 1200px; margin: 60px auto; padding: 0 20px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 35px; }
         
-        /* Card Style */
+        /* Card */
         .card { 
-            background: var(--white); border-radius: 8px; overflow: hidden; 
+            background: var(--white); border-radius: 12px; overflow: hidden; 
             box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #eee;
-            opacity: 0; animation: fadeInUp 0.8s ease-out forwards; transition: 0.3s;
+            opacity: 0; animation: fadeInUp 0.8s ease-out forwards;
         }
-        .card:hover { transform: translateY(-10px); }
         .card img { width: 100%; height: 380px; object-fit: cover; }
-        
         .card-info { padding: 25px; text-align: center; }
-        /* اسم الشنطة بالأسود الفخم */
-        .card-info h3 { margin-bottom: 10px; font-size: 1.2rem; color: var(--black); }
-        /* السعر بنفس درجة ذهبي اللوجو */
+        .card-info h3 { margin-bottom: 10px; color: var(--black); font-size: 1.2rem; }
         .price { color: var(--gold); font-weight: bold; font-size: 1.6rem; display: block; margin-bottom: 20px; }
         
-        /* الزراير بنفس درجة ذهبي اللوجو */
+        /* Order Button */
         .btn-order { 
             background: var(--black); color: var(--gold); border: 2px solid var(--gold); 
             padding: 12px; width: 100%; font-weight: bold; cursor: pointer; 
-            text-decoration: none; display: inline-block; border-radius: 4px; transition: 0.3s;
+            text-decoration: none; display: inline-block; border-radius: 6px; transition: 0.3s;
         }
         .btn-order:hover { background: var(--gold); color: var(--black); }
 
         /* Footer */
         footer { background: var(--black); padding: 50px 20px; text-align: center; border-top: 2px solid var(--gold); }
-        .footer-logo { height: 60px; width: auto; margin-bottom: 20px; }
-        .footer-socials a { color: var(--gold); font-size: 2rem; margin: 0 15px; transition: 0.3s; }
-        footer p { color: var(--gold); opacity: 0.7; margin-top: 20px; font-size: 0.9rem; }
+        .footer-socials a { color: var(--gold); font-size: 2.2rem; margin: 0 20px; transition: 0.3s; }
+        footer p { color: var(--gold); opacity: 0.7; margin-top: 20px; letter-spacing: 1px; }
 
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
@@ -75,7 +73,8 @@
 
 <nav>
     <a href="#" class="nav-brand">
-        <img src="logo.png" alt="Eclaté Logo" onerror="this.style.display='none'">
+        <img src="logo.png" alt="" class="nav-logo-img" onerror="this.style.display='none'">
+        <span class="nav-logo-text">ECLATÉ</span>
     </a>
     <div class="nav-socials">
         <a href="https://www.instagram.com/eclate_eg/" target="_blank"><i class="fab fa-instagram"></i></a>
@@ -84,7 +83,8 @@
 </nav>
 
 <section class="hero">
-    <img src="logo.png" alt="Eclaté Logo Large" class="hero-logo" onerror="this.style.display='none'">
+    <img src="logo.png" alt="" class="hero-logo" onerror="this.style.display='none'">
+    <h1>ECLATÉ</h1>
     <p>أناقة تليق بكِ</p>
 </section>
 
@@ -93,7 +93,6 @@
 </div>
 
 <footer>
-    <img src="logo.png" alt="Eclaté Footer" class="footer-logo">
     <div class="footer-socials">
         <a href="https://www.instagram.com/eclate_eg/" target="_blank"><i class="fab fa-instagram"></i></a>
         <a href="https://www.tiktok.com/@eclate_eg" target="_blank"><i class="fab fa-tiktok"></i></a>
@@ -107,34 +106,36 @@
     const whatsappNumber = '201011590702';
 
     async function loadData() {
-        const response = await fetch(sheetUrl);
-        const csvData = await response.text();
-        const rows = csvData.split('\n').slice(1);
-        const grid = document.getElementById('products-grid');
-        grid.innerHTML = '';
+        try {
+            const response = await fetch(sheetUrl);
+            const csvData = await response.text();
+            const rows = csvData.split('\n').slice(1);
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = '';
 
-        rows.forEach((row, index) => {
-            const cols = row.split(',');
-            if (cols.length >= 4) {
-                const name = cols[1].trim();
-                const price = cols[2].trim();
-                const img = cols[3].trim();
-                const waMessage = encodeURIComponent(`أهلاً Eclaté، أرغب في طلب هذه القطعة المميزة: ${name}`);
+            rows.forEach((row, index) => {
+                const cols = row.split(',');
+                if (cols.length >= 4) {
+                    const name = cols[1].trim();
+                    const price = cols[2].trim();
+                    const img = cols[3].trim();
+                    const waMessage = encodeURIComponent(`أهلاً Eclaté، أرغب في طلب: ${name}`);
 
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.style.animationDelay = `${index * 0.15}s`; 
-                card.innerHTML = `
-                    <img src="${img}" alt="${name}">
-                    <div class="card-info">
-                        <h3>${name}</h3>
-                        <span class="price">${price} EGP</span>
-                        <a href="https://wa.me/${whatsappNumber}?text=${waMessage}" target="_blank" class="btn-order">Order via WhatsApp</a>
-                    </div>
-                `;
-                grid.appendChild(card);
-            }
-        });
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.style.animationDelay = `${index * 0.1}s`; 
+                    card.innerHTML = `
+                        <img src="${img}" alt="${name}" onerror="this.src='https://via.placeholder.com/400x500?text=Eclaté'">
+                        <div class="card-info">
+                            <h3>${name}</h3>
+                            <span class="price">${price} EGP</span>
+                            <a href="https://wa.me/${whatsappNumber}?text=${waMessage}" target="_blank" class="btn-order">Order via WhatsApp</a>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                }
+            });
+        } catch (e) { console.log("Error loading data"); }
     }
     loadData();
 </script>
