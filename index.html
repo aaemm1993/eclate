@@ -3,42 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eclaté - Elegant Bags</title>
+    <title>Eclaté - المتجر الرسمي</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* رجعنا الألوان الأساسية والتنسيق الفخم */
-        :root { --gold: #d4af37; --black: #1a1a1a; --white: #ffffff; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: #fff; overflow-x: hidden; text-align: right; }
+        :root { --gold: #d4af37; --black: #111; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #fff; color: var(--black); }
         
-        header { background: var(--black); color: white; padding: 30px 20px; text-align: center; border-bottom: 3px solid var(--gold); }
-        .logo { font-size: 2.8rem; letter-spacing: 8px; color: var(--gold); margin: 0; font-weight: bold; }
-        .tagline { font-size: 1rem; color: #eee; margin-top: 10px; letter-spacing: 3px; }
+        /* الهيدر زي ما كان عاجبك */
+        header { background: var(--black); color: var(--gold); padding: 40px 20px; text-align: center; }
+        .logo { font-size: 3rem; letter-spacing: 10px; margin: 0; font-weight: bold; }
+        .tagline { color: #fff; letter-spacing: 2px; font-size: 0.9rem; margin-top: 10px; }
 
-        .container { max-width: 1200px; margin: auto; padding: 40px 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; }
+        /* تظبيط عرض المنتجات */
+        .container { max-width: 1100px; margin: auto; padding: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
         
-        /* تحسين شكل الكارت عشان يرجع زي الأول */
-        .card { border: none; padding: 0; text-align: center; transition: 0.4s; background: #fff; }
-        .card:hover { transform: translateY(-10px); }
-        .card img { width: 100%; height: 400px; object-fit: cover; border-radius: 5px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .card h3 { font-size: 1.3rem; margin: 15px 0 5px 0; color: var(--black); }
-        .price { color: var(--gold); font-weight: bold; font-size: 1.4rem; display: block; margin-bottom: 15px; }
+        /* الكارت الفخم */
+        .card { background: #fff; padding: 0; text-align: center; border: 1px solid #f0f0f0; transition: 0.3s; }
+        .card:hover { border-color: var(--gold); }
         
-        .btn-add { background: var(--black); color: white; padding: 15px; border: 1px solid var(--black); width: 100%; cursor: pointer; border-radius: 0; font-size: 1rem; font-weight: bold; transition: 0.3s; letter-spacing: 1px; }
-        .btn-add:hover { background: var(--white); color: var(--black); border-color: var(--black); }
+        /* أهم جزء: تثبيت عرض وطول الصورة */
+        .card img { width: 100%; height: 320px; object-fit: cover; display: block; background: #eee; }
+        
+        .card-info { padding: 15px; }
+        .card h3 { font-size: 1.1rem; margin: 10px 0; color: #333; }
+        .price { color: var(--gold); font-weight: bold; font-size: 1.2rem; display: block; margin-bottom: 15px; }
+        
+        .btn-add { background: var(--black); color: #fff; border: none; width: 100%; padding: 12px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .btn-add:hover { background: var(--gold); color: var(--black); }
 
-        /* أيقونة السلة */
-        .cart-icon { position: fixed; bottom: 30px; left: 30px; background: var(--black); color: var(--gold); width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; cursor: pointer; box-shadow: 0 5px 20px rgba(0,0,0,0.3); z-index: 2000; border: 2px solid var(--gold); }
-        .cart-count { position: absolute; top: -5px; right: -5px; background: var(--gold); color: var(--black); border-radius: 50%; width: 22px; height: 22px; font-size: 13px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        /* السلة الطائرة */
+        .cart-icon { position: fixed; bottom: 20px; left: 20px; background: var(--gold); color: #000; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 1000; }
+        .cart-count { position: absolute; top: 0; right: 0; background: red; color: #fff; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; display: flex; align-items: center; justify-content: center; }
 
-        #cart-sidebar { position: fixed; top: 0; left: -400px; width: 350px; height: 100%; background: white; box-shadow: 5px 0 20px rgba(0,0,0,0.2); transition: 0.5s; z-index: 3000; padding: 30px; overflow-y: auto; }
+        /* القائمة الجانبية للسلة */
+        #cart-sidebar { position: fixed; top: 0; left: -350px; width: 300px; height: 100%; background: #fff; box-shadow: 2px 0 10px rgba(0,0,0,0.2); transition: 0.3s; z-index: 2000; padding: 20px; }
         #cart-sidebar.open { left: 0; }
-        .checkout-btn { background: #25d366; color: white; border: none; width: 100%; padding: 18px; font-size: 1.2rem; cursor: pointer; margin-top: 20px; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .cart-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+        .checkout-btn { background: #25d366; color: #fff; width: 100%; padding: 15px; border: none; margin-top: 20px; cursor: pointer; font-weight: bold; border-radius: 5px; }
 
-        footer { background: var(--black); color: white; padding: 60px 20px; text-align: center; margin-top: 80px; }
-        .social-links { margin-bottom: 25px; }
-        .social-links a { color: var(--gold); font-size: 2.2rem; margin: 0 20px; transition: 0.3s; }
-        .social-links a:hover { color: white; transform: scale(1.2); display: inline-block; }
+        footer { background: #000; color: #fff; padding: 40px; text-align: center; margin-top: 50px; }
+        .social-links a { color: var(--gold); font-size: 1.8rem; margin: 0 15px; text-decoration: none; }
     </style>
 </head>
 <body>
@@ -59,23 +64,18 @@
 </div>
 
 <div id="cart-sidebar">
-    <h2 style="border-bottom: 2px solid var(--gold); padding-bottom: 10px;">حقيبة التسوق</h2>
+    <h3>سلة المشتريات</h3>
     <div id="cart-items"></div>
-    <div style="margin-top: 30px;">
-        <h3 style="display: flex; justify-content: space-between;">الإجمالي: <span><span id="cart-total">0</span> ج.م</span></h3>
-    </div>
-    <button class="checkout-btn" onclick="sendWhatsApp()">
-        <i class="fab fa-whatsapp"></i> تأكيد الطلب
-    </button>
-    <button onclick="toggleCart()" style="width:100%; margin-top:20px; border:none; background:none; cursor:pointer; color: #999;">إغلاق</button>
+    <p style="font-weight: bold; margin-top: 20px;">الإجمالي: <span id="cart-total">0</span> ج.م</p>
+    <button class="checkout-btn" onclick="sendWhatsApp()">إتمام الطلب عبر واتساب</button>
+    <button onclick="toggleCart()" style="background:none; border:none; color:#999; width:100%; margin-top:10px; cursor:pointer;">إغلاق</button>
 </div>
 
 <footer>
     <div class="social-links">
-        <a href="https://www.instagram.com/eclate_eg/" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.tiktok.com/@eclate_eg" target="_blank"><i class="fab fa-tiktok"></i></a>
+        <a href="https://www.instagram.com/eclate_eg/"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@eclate_eg"><i class="fab fa-tiktok"></i></a>
     </div>
-    <p>&copy; 2026 Eclaté EG.</p>
 </footer>
 
 <script>
@@ -83,71 +83,60 @@
     let products = [];
     const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQGP488InXYjOP4SbgDmeNgPapkgFyMpjWr0ShvACi56yOHNEY3VsdLP3tEHXuFXc3FRRjgaFb2QktM/pub?output=csv";
 
-    async function fetchProducts() {
-        try {
-            const response = await fetch(sheetURL);
-            const data = await response.text();
-            const rows = data.split('\n').slice(1);
-            products = rows.map(row => {
-                const cols = row.split(',');
-                return {
-                    id: cols[0]?.trim(),
-                    name: cols[1]?.trim(),
-                    price: parseInt(cols[2]?.trim()) || 0,
-                    img: cols[3]?.trim()
-                };
-            }).filter(p => p.name);
-            displayProducts();
-        } catch (e) { console.error(e); }
+    async function loadProducts() {
+        const response = await fetch(sheetURL);
+        const data = await response.text();
+        const rows = data.split('\n').slice(1);
+        products = rows.map(row => {
+            const cols = row.split(',');
+            return { id: cols[0], name: cols[1], price: parseInt(cols[2]), img: cols[3]?.trim() };
+        }).filter(p => p.name);
+        render();
     }
 
-    function displayProducts() {
-        const grid = document.getElementById('products-grid');
-        grid.innerHTML = products.map(p => `
+    function render() {
+        document.getElementById('products-grid').innerHTML = products.map(p => `
             <div class="card">
-                <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/400x500?text=Eclate'">
-                <h3>${p.name}</h3>
-                <span class="price">${p.price} ج.م</span>
-                <button class="btn-add" onclick="addToCart('${p.id}')">إضافة للحقيبة</button>
+                <img src="${p.img}" alt="${p.name}">
+                <div class="card-info">
+                    <h3>${p.name}</h3>
+                    <span class="price">${p.price} ج.م</span>
+                    <button class="btn-add" onclick="addToCart('${p.id}')">إضافة للحقيبة</button>
+                </div>
             </div>
         `).join('');
     }
 
     function addToCart(id) {
-        const product = products.find(p => p.id === id);
-        if(product) {
-            cart.push(product);
-            updateCart();
-            if(!document.getElementById('cart-sidebar').classList.contains('open')) toggleCart();
-        }
+        const p = products.find(x => x.id == id);
+        cart.push(p);
+        updateCart();
+        toggleCart(true);
     }
 
     function updateCart() {
-        const cartItems = document.getElementById('cart-items');
-        const cartCount = document.getElementById('cart-count');
-        const cartTotal = document.getElementById('cart-total');
-        cartCount.innerText = cart.length;
-        cartItems.innerHTML = cart.map((item, index) => `
-            <div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #eee;">
-                <span>${item.name}</span>
-                <span>${item.price} ج.م</span>
-            </div>
+        document.getElementById('cart-count').innerText = cart.length;
+        document.getElementById('cart-items').innerHTML = cart.map(i => `
+            <div class="cart-item"><span>${i.name}</span><span>${i.price} ج.م</span></div>
         `).join('');
-        const total = cart.reduce((sum, item) => sum + item.price, 0);
-        cartTotal.innerText = total;
+        document.getElementById('cart-total').innerText = cart.reduce((s, i) => s + i.price, 0);
     }
 
-    function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('open'); }
+    function toggleCart(show) {
+        const s = document.getElementById('cart-sidebar');
+        if (show === true) s.classList.add('open');
+        else s.classList.toggle('open');
+    }
 
     function sendWhatsApp() {
-        if(cart.length === 0) return alert("الحقيبة فارغة");
+        if (cart.length === 0) return alert("السلة فارغة");
         let msg = "طلب جديد من Eclaté:%0a";
         cart.forEach(i => msg += `- ${i.name} (${i.price} ج.م)%0a`);
         msg += `%0aالإجمالي: ${document.getElementById('cart-total').innerText} ج.م`;
-        window.open(`https://wa.me/201011590702?text=${msg}`, '_blank');
+        window.open(`https://wa.me/201011590702?text=${msg}`);
     }
 
-    fetchProducts();
+    loadProducts();
 </script>
 </body>
 </html>
