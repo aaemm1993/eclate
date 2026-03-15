@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,56 +7,60 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { --gold: #d4af37; --black: #111; --white: #ffffff; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: #fff; color: var(--black); scroll-behavior: smooth; }
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #fff; color: var(--black); scroll-behavior: smooth; overflow-x: hidden; }
         
-        /* القائمة (المنيو) */
-        nav { background: var(--black); padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 2000; border-bottom: 2px solid var(--gold); }
-        .nav-logo { color: var(--gold); font-weight: bold; font-size: 1.8rem; letter-spacing: 4px; text-decoration: none; }
-        .nav-links a { color: #fff; text-decoration: none; margin-right: 25px; font-size: 1rem; transition: 0.3s; }
-        .nav-links a:hover { color: var(--gold); }
+        /* Navbar - Mobile Friendly */
+        nav { background: var(--black); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 2000; border-bottom: 1px solid var(--gold); }
+        .nav-logo { color: var(--gold); font-weight: bold; font-size: 1.5rem; letter-spacing: 3px; text-decoration: none; }
+        .nav-links { display: flex; gap: 15px; }
+        .nav-links a { color: #fff; text-decoration: none; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* الواجهة الرئيسية (Hero) */
+        /* Hero Section - Responsive Height */
         .hero { 
-            height: 90vh; 
+            height: 70vh; 
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('hero.jpg'); 
-            background-size: cover; 
-            background-position: center; 
-            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: #fff;
+            background-size: cover; background-position: center; 
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: #fff; padding: 0 20px;
         }
-        .hero h1 { font-size: 5rem; letter-spacing: 15px; margin: 0; color: var(--gold); text-transform: uppercase; }
-        .hero p { font-size: 1.5rem; letter-spacing: 5px; margin-top: 15px; }
-        .shop-btn { margin-top: 40px; padding: 18px 50px; background: var(--gold); color: #000; text-decoration: none; font-weight: bold; border-radius: 0; transition: 0.3s; font-size: 1.1rem; }
-        .shop-btn:hover { background: #fff; transform: scale(1.05); }
+        .hero h1 { font-size: clamp(2.5rem, 8vw, 5rem); letter-spacing: clamp(5px, 2vw, 15px); margin: 0; color: var(--gold); }
+        .hero p { font-size: clamp(1rem, 3vw, 1.5rem); letter-spacing: 3px; margin-top: 10px; }
+        .shop-btn { margin-top: 30px; padding: 15px 35px; background: var(--gold); color: #000; text-decoration: none; font-weight: bold; transition: 0.3s; }
 
-        /* المتجر */
-        .container { max-width: 1200px; margin: auto; padding: 80px 20px; }
-        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 60px; letter-spacing: 8px; text-transform: uppercase; border-bottom: 2px solid #eee; padding-bottom: 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px; }
-        .card { background: #fff; transition: 0.4s; text-align: center; border: 1px solid #f9f9f9; }
-        .card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        .card img { width: 100%; height: 420px; object-fit: cover; }
-        .card-info { padding: 25px; }
-        .price { color: var(--gold); font-weight: bold; font-size: 1.5rem; margin-bottom: 20px; display: block; }
-        .btn-add { background: var(--black); color: #fff; border: 1px solid var(--black); width: 100%; padding: 15px; cursor: pointer; font-weight: bold; font-size: 1rem; transition: 0.3s; }
-        .btn-add:hover { background: transparent; color: var(--black); }
+        /* Products Grid - Mobile Fix */
+        .container { max-width: 1200px; margin: auto; padding: 40px 15px; }
+        .section-title { text-align: center; font-size: 1.8rem; margin-bottom: 40px; letter-spacing: 4px; text-transform: uppercase; }
+        
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Very important for mobile */
+            gap: 20px; 
+        }
 
-        /* سياسة الاستبدال */
-        #policies { background: #fdfdfd; padding: 100px 20px; text-align: center; border-top: 1px solid #eee; }
-        .policy-box { max-width: 900px; margin: auto; line-height: 2; font-size: 1.2rem; color: #444; }
-        .policy-box h2 { color: var(--gold); margin-bottom: 30px; letter-spacing: 3px; }
+        /* Responsive adjustments for larger screens */
+        @media (min-width: 600px) {
+            .grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+            .nav-links a { font-size: 0.9rem; gap: 25px; }
+        }
 
-        /* السلة */
-        .cart-icon { position: fixed; bottom: 30px; left: 30px; background: var(--black); color: var(--gold); width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 3000; border: 2px solid var(--gold); }
-        .cart-count { position: absolute; top: -5px; right: -5px; background: var(--gold); color: #000; width: 25px; height: 25px; border-radius: 50%; font-size: 13px; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 2px solid var(--black); }
-        #cart-sidebar { position: fixed; top: 0; left: -400px; width: 350px; height: 100%; background: #fff; box-shadow: 10px 0 30px rgba(0,0,0,0.2); transition: 0.5s; z-index: 4000; padding: 40px; }
-        #cart-sidebar.open { left: 0; }
-        .checkout-btn { background: #25d366; color: #fff; width: 100%; padding: 20px; border: none; margin-top: 30px; cursor: pointer; font-weight: bold; font-size: 1.2rem; border-radius: 5px; }
+        .card { background: #fff; border: 1px solid #eee; transition: 0.3s; text-align: center; }
+        .card img { width: 100%; height: auto; aspect-ratio: 3/4; object-fit: cover; }
+        .card-info { padding: 15px; }
+        .card h3 { font-size: 1rem; margin-bottom: 10px; height: 2.4em; overflow: hidden; }
+        .price { color: var(--gold); font-weight: bold; font-size: 1.1rem; margin-bottom: 15px; display: block; }
+        .btn-add { background: var(--black); color: #fff; border: none; width: 100%; padding: 12px; cursor: pointer; font-weight: bold; font-size: 0.9rem; }
 
-        /* الفوتر */
-        footer { background: var(--black); color: #fff; padding: 80px 20px; text-align: center; }
-        .social-links { margin-bottom: 30px; }
-        .social-links a { color: var(--gold); font-size: 2.5rem; margin: 0 25px; transition: 0.3s; }
-        .social-links a:hover { color: #fff; transform: translateY(-5px); }
+        /* Sidebar & Cart - Mobile Friendly Width */
+        #cart-sidebar { position: fixed; top: 0; right: -100%; width: 100%; max-width: 350px; height: 100%; background: #fff; shadow: -5px 0 15px rgba(0,0,0,0.1); transition: 0.4s; z-index: 4000; padding: 30px; box-sizing: border-box; }
+        #cart-sidebar.open { right: 0; }
+        .cart-icon { position: fixed; bottom: 20px; right: 20px; background: var(--black); color: var(--gold); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer; z-index: 3000; border: 1px solid var(--gold); }
+        .cart-count { position: absolute; top: 0; right: 0; background: var(--gold); color: #000; width: 20px; height: 20px; border-radius: 50%; font-size: 11px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+
+        /* Policies Section */
+        #policies { background: #f9f9f9; padding: 60px 20px; text-align: center; }
+        .policy-box { max-width: 800px; margin: auto; line-height: 1.6; }
+
+        footer { background: var(--black); color: #fff; padding: 40px 20px; text-align: center; }
+        .social-links a { color: var(--gold); font-size: 1.8rem; margin: 0 15px; }
     </style>
 </head>
 <body>
@@ -64,29 +68,27 @@
 <nav>
     <a href="#" class="nav-logo">ECLATÉ</a>
     <div class="nav-links">
-        <a href="#">الرئيسية</a>
-        <a href="#store">المتجر</a>
-        <a href="#policies">سياسة الاستبدال</a>
+        <a href="#store">Store</a>
+        <a href="#policies">Returns</a>
     </div>
 </nav>
 
 <section class="hero">
     <h1>ECLATÉ</h1>
-    <p>Elegant Bags for Elegant Women</p>
-    <a href="#store" class="shop-btn">اكتشفي التشكيلة</a>
+    <p>Elegance That Suits You</p>
+    <a href="#store" class="shop-btn">SHOP NOW</a>
 </section>
 
 <div class="container" id="store">
-    <h2 class="section-title">المتجر</h2>
-    <div class="grid" id="products-grid">
-        </div>
+    <h2 class="section-title">Latest Collection</h2>
+    <div class="grid" id="products-grid"></div>
 </div>
 
 <section id="policies">
     <div class="policy-box">
-        <h2>سياسة الاستبدال والاسترجاع</h2>
-        <p>نفخر في <strong>Eclaté</strong> بتقديم أجود أنواع الحقائب. لضمان رضاكم، نتيح لكم خيار الاستبدال خلال 14 يوماً من تاريخ استلام الطلب، بشرط أن يكون المنتج بحالته الأصلية تماماً وفي تغليفه الخاص.</p>
-        <p>في حالة وجود أي عيب فني أو خطأ في الطلب، نتحمل كافة تكاليف الشحن والاستبدال فوراً.</p>
+        <h2 style="color:var(--gold)">Exchange & Return Policy</h2>
+        <p>At <strong>Eclaté</strong>, we guarantee quality. You can exchange your item within 14 days of delivery, provided it's in its original condition and packaging.</p>
+        <p>In case of any manufacturing defects, we handle the exchange free of charge immediately.</p>
     </div>
 </section>
 
@@ -96,15 +98,15 @@
 </div>
 
 <div id="cart-sidebar">
-    <h2 style="border-bottom: 3px solid var(--gold); padding-bottom: 15px;">حقيبة التسوق</h2>
-    <div id="cart-items" style="margin-top: 20px;"></div>
-    <div style="border-top: 1px solid #eee; margin-top: 30px; padding-top: 20px;">
-        <h3 style="display: flex; justify-content: space-between;">الإجمالي: <span><span id="cart-total">0</span> ج.م</span></h3>
+    <h2 style="border-bottom: 2px solid var(--gold); padding-bottom: 10px;">Your Bag</h2>
+    <div id="cart-items" style="margin-top:20px;"></div>
+    <div style="border-top: 1px solid #eee; margin-top: 20px; padding-top: 15px;">
+        <h3 style="display: flex; justify-content: space-between;">Total: <span><span id="cart-total">0</span> EGP</span></h3>
     </div>
-    <button class="checkout-btn" onclick="sendWhatsApp()">
-        <i class="fab fa-whatsapp"></i> إرسال الطلب (واتساب)
+    <button style="background:#25d366; color:#fff; width:100%; padding:15px; border:none; margin-top:20px; cursor:pointer; font-weight:bold;" onclick="sendWhatsApp()">
+        ORDER VIA WHATSAPP
     </button>
-    <button onclick="toggleCart()" style="width:100%; background:none; border:none; margin-top:30px; color:#999; cursor:pointer; text-decoration: underline;">العودة للمتجر</button>
+    <button onclick="toggleCart()" style="width:100%; background:none; border:none; margin-top:20px; color:#999; cursor:pointer; text-decoration:underline;">Close</button>
 </div>
 
 <footer>
@@ -112,7 +114,7 @@
         <a href="https://www.instagram.com/eclate_eg/" target="_blank"><i class="fab fa-instagram"></i></a>
         <a href="https://www.tiktok.com/@eclate_eg" target="_blank"><i class="fab fa-tiktok"></i></a>
     </div>
-    <p>&copy; 2026 Eclaté Egypt. Designed for Elegance.</p>
+    <p style="margin-top:20px; font-size:0.8rem; opacity:0.6;">&copy; 2026 Eclaté Egypt. All rights reserved.</p>
 </footer>
 
 <script>
@@ -121,26 +123,24 @@
     const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQGP488InXYjOP4SbgDmeNgPapkgFyMpjWr0ShvACi56yOHNEY3VsdLP3tEHXuFXc3FRRjgaFb2QktM/pub?output=csv";
 
     async function load() {
-        try {
-            const res = await fetch(sheetURL);
-            const data = await res.text();
-            const rows = data.split('\n').slice(1);
-            products = rows.map(r => {
-                const c = r.split(',');
-                return { id: c[0], name: c[1], price: parseInt(c[2]), img: c[3]?.trim() };
-            }).filter(p => p.name);
-            render();
-        } catch (e) { console.error("Error loading sheet"); }
+        const res = await fetch(sheetURL);
+        const data = await res.text();
+        const rows = data.split('\n').slice(1);
+        products = rows.map(r => {
+            const c = r.split(',');
+            return { id: c[0], name: c[1], price: parseInt(c[2]), img: c[3]?.trim() };
+        }).filter(p => p.name);
+        render();
     }
 
     function render() {
         document.getElementById('products-grid').innerHTML = products.map(p => `
             <div class="card">
-                <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/400x500?text=Eclate'">
+                <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/300x400'">
                 <div class="card-info">
                     <h3>${p.name}</h3>
-                    <span class="price">${p.price} ج.م</span>
-                    <button class="btn-add" onclick="addToCart('${p.id}')">إضافة للحقيبة</button>
+                    <span class="price">${p.price} EGP</span>
+                    <button class="btn-add" onclick="addToCart('${p.id}')">ADD TO BAG</button>
                 </div>
             </div>
         `).join('');
@@ -153,14 +153,12 @@
 
     function updateCart() {
         document.getElementById('cart-count').innerText = cart.length;
-        document.getElementById('cart-items').innerHTML = cart.map((i, idx) => `
-            <div style="display:flex; justify-content:space-between; margin-bottom:15px; border-bottom:1px solid #f9f9f9; padding-bottom:10px;">
-                <span>${i.name}</span>
-                <strong>${i.price} ج.م</strong>
+        document.getElementById('cart-items').innerHTML = cart.map(i => `
+            <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:0.9rem;">
+                <span>${i.name}</span><strong>${i.price} EGP</strong>
             </div>
         `).join('');
-        const total = cart.reduce((s, i) => s + i.price, 0);
-        document.getElementById('cart-total').innerText = total;
+        document.getElementById('cart-total').innerText = cart.reduce((s, i) => s + i.price, 0);
     }
 
     function toggleCart(open) {
@@ -170,12 +168,11 @@
     }
 
     function sendWhatsApp() {
-        if(cart.length === 0) return alert("الحقيبة فارغة!");
-        let msg = "مرحباً Eclaté، أود طلب الموديلات التالية:%0a%0a";
-        cart.forEach((i, index) => msg += `${index+1}- ${i.name} (${i.price} ج.م)%0a`);
-        msg += `%0a*الإجمالي: ${document.getElementById('cart-total').innerText} ج.م*`;
-        // الرقم: 01011590702
-        window.open(`https://wa.me/201011590702?text=${msg}`, '_blank');
+        if(cart.length === 0) return alert("Your bag is empty!");
+        let msg = "Hello Eclaté, I'd like to order:%0a";
+        cart.forEach(i => msg += `- ${i.name} (${i.price} EGP)%0a`);
+        msg += `%0aTotal: ${document.getElementById('cart-total').innerText} EGP`;
+        window.open(`https://wa.me/201011590702?text=${msg}`);
     }
 
     load();
