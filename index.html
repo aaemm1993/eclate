@@ -1,181 +1,113 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eclaté - Elegant Bags</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { --gold: #d4af37; --black: #111; --white: #ffffff; }
-        body { font-family: 'Helvetica Neue', Arial, sans-serif; margin: 0; background: #fff; color: var(--black); scroll-behavior: smooth; overflow-x: hidden; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: #f9f9f9; color: var(--black); }
         
-        /* Navbar - Mobile Friendly */
-        nav { background: var(--black); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 2000; border-bottom: 1px solid var(--gold); }
-        .nav-logo { color: var(--gold); font-weight: bold; font-size: 1.5rem; letter-spacing: 3px; text-decoration: none; }
-        .nav-links { display: flex; gap: 15px; }
-        .nav-links a { color: #fff; text-decoration: none; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+        /* Navbar */
+        nav { background: var(--black); padding: 15px 5%; display: flex; justify-content: center; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 2px solid var(--gold); }
+        .nav-logo { color: var(--gold); font-size: 1.8rem; font-weight: bold; letter-spacing: 4px; text-decoration: none; }
 
-        /* Hero Section - Responsive Height */
-        .hero { 
-            height: 70vh; 
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('hero.jpg'); 
-            background-size: cover; background-position: center; 
-            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: #fff; padding: 0 20px;
-        }
-        .hero h1 { font-size: clamp(2.5rem, 8vw, 5rem); letter-spacing: clamp(5px, 2vw, 15px); margin: 0; color: var(--gold); }
-        .hero p { font-size: clamp(1rem, 3vw, 1.5rem); letter-spacing: 3px; margin-top: 10px; }
-        .shop-btn { margin-top: 30px; padding: 15px 35px; background: var(--gold); color: #000; text-decoration: none; font-weight: bold; transition: 0.3s; }
+        /* Hero Section */
+        .hero { height: 60vh; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('hero.jpg'); background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; color: var(--gold); text-align: center; }
+        .hero h1 { font-size: 3.5rem; margin: 0; letter-spacing: 8px; }
+        .hero p { color: #fff; font-size: 1.2rem; letter-spacing: 2px; }
 
-        /* Products Grid - Mobile Fix */
-        .container { max-width: 1200px; margin: auto; padding: 40px 15px; }
-        .section-title { text-align: center; font-size: 1.8rem; margin-bottom: 40px; letter-spacing: 4px; text-transform: uppercase; }
+        /* Grid */
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+
+        /* Card Style */
+        .card { background: var(--white); border: 1px solid #eee; border-radius: 8px; overflow: hidden; position: relative; transition: 0.3s; cursor: pointer; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+        .card img { width: 100%; height: 350px; object-fit: cover; border-bottom: 1px solid #eee; }
+        .card-info { padding: 20px; }
+        .card-info h3 { margin: 10px 0; font-size: 1.1rem; color: #333; }
+        .price { color: var(--gold); font-weight: bold; font-size: 1.3rem; display: block; margin-bottom: 15px; }
         
-        .grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Very important for mobile */
-            gap: 20px; 
+        /* Button */
+        .btn-order { background: var(--black); color: var(--gold); border: 1px solid var(--gold); padding: 10px 20px; width: 100%; font-weight: bold; cursor: pointer; transition: 0.3s; border-radius: 4px; }
+        .btn-order:hover { background: var(--gold); color: var(--black); }
+
+        /* Reaction Animation */
+        .reaction { position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); font-size: 3.5rem; opacity: 0; pointer-events: none; z-index: 10; }
+        .animate-emoji { animation: popUp 0.8s ease-out forwards; }
+        @keyframes popUp { 
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); } 
+            50% { opacity: 1; transform: translate(-50%, -80%) scale(1.2); } 
+            100% { opacity: 0; transform: translate(-50%, -120%) scale(1); } 
         }
 
-        /* Responsive adjustments for larger screens */
-        @media (min-width: 600px) {
-            .grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
-            .nav-links a { font-size: 0.9rem; gap: 25px; }
-        }
-
-        .card { background: #fff; border: 1px solid #eee; transition: 0.3s; text-align: center; }
-        .card img { width: 100%; height: auto; aspect-ratio: 3/4; object-fit: cover; }
-        .card-info { padding: 15px; }
-        .card h3 { font-size: 1rem; margin-bottom: 10px; height: 2.4em; overflow: hidden; }
-        .price { color: var(--gold); font-weight: bold; font-size: 1.1rem; margin-bottom: 15px; display: block; }
-        .btn-add { background: var(--black); color: #fff; border: none; width: 100%; padding: 12px; cursor: pointer; font-weight: bold; font-size: 0.9rem; }
-
-        /* Sidebar & Cart - Mobile Friendly Width */
-        #cart-sidebar { position: fixed; top: 0; right: -100%; width: 100%; max-width: 350px; height: 100%; background: #fff; shadow: -5px 0 15px rgba(0,0,0,0.1); transition: 0.4s; z-index: 4000; padding: 30px; box-sizing: border-box; }
-        #cart-sidebar.open { right: 0; }
-        .cart-icon { position: fixed; bottom: 20px; right: 20px; background: var(--black); color: var(--gold); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer; z-index: 3000; border: 1px solid var(--gold); }
-        .cart-count { position: absolute; top: 0; right: 0; background: var(--gold); color: #000; width: 20px; height: 20px; border-radius: 50%; font-size: 11px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
-
-        /* Policies Section */
-        #policies { background: #f9f9f9; padding: 60px 20px; text-align: center; }
-        .policy-box { max-width: 800px; margin: auto; line-height: 1.6; }
-
-        footer { background: var(--black); color: #fff; padding: 40px 20px; text-align: center; }
-        .social-links a { color: var(--gold); font-size: 1.8rem; margin: 0 15px; }
+        #loading { text-align: center; font-size: 1.2rem; padding: 50px; color: var(--gold); }
     </style>
 </head>
 <body>
 
-<nav>
-    <a href="#" class="nav-logo">ECLATÉ</a>
-    <div class="nav-links">
-        <a href="#store">Store</a>
-        <a href="#policies">Returns</a>
-    </div>
-</nav>
+<nav><a href="#" class="nav-logo">ECLATÉ</a></nav>
 
 <section class="hero">
     <h1>ECLATÉ</h1>
-    <p>Elegance That Suits You</p>
-    <a href="#store" class="shop-btn">SHOP NOW</a>
+    <p>Elegant Bags & Accessories</p>
 </section>
 
-<div class="container" id="store">
-    <h2 class="section-title">Latest Collection</h2>
+<div class="container">
+    <div id="loading">جاري سحب أحدث المنتجات من الشيت...</div>
     <div class="grid" id="products-grid"></div>
 </div>
 
-<section id="policies">
-    <div class="policy-box">
-        <h2 style="color:var(--gold)">Exchange & Return Policy</h2>
-        <p>At <strong>Eclaté</strong>, we guarantee quality. You can exchange your item within 14 days of delivery, provided it's in its original condition and packaging.</p>
-        <p>In case of any manufacturing defects, we handle the exchange free of charge immediately.</p>
-    </div>
-</section>
-
-<div class="cart-icon" onclick="toggleCart()">
-    <i class="fas fa-shopping-bag"></i>
-    <div class="cart-count" id="cart-count">0</div>
-</div>
-
-<div id="cart-sidebar">
-    <h2 style="border-bottom: 2px solid var(--gold); padding-bottom: 10px;">Your Bag</h2>
-    <div id="cart-items" style="margin-top:20px;"></div>
-    <div style="border-top: 1px solid #eee; margin-top: 20px; padding-top: 15px;">
-        <h3 style="display: flex; justify-content: space-between;">Total: <span><span id="cart-total">0</span> EGP</span></h3>
-    </div>
-    <button style="background:#25d366; color:#fff; width:100%; padding:15px; border:none; margin-top:20px; cursor:pointer; font-weight:bold;" onclick="sendWhatsApp()">
-        ORDER VIA WHATSAPP
-    </button>
-    <button onclick="toggleCart()" style="width:100%; background:none; border:none; margin-top:20px; color:#999; cursor:pointer; text-decoration:underline;">Close</button>
-</div>
-
-<footer>
-    <div class="social-links">
-        <a href="https://www.instagram.com/eclate_eg/" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.tiktok.com/@eclate_eg" target="_blank"><i class="fab fa-tiktok"></i></a>
-    </div>
-    <p style="margin-top:20px; font-size:0.8rem; opacity:0.6;">&copy; 2026 Eclaté Egypt. All rights reserved.</p>
-</footer>
-
 <script>
-    let cart = [];
-    let products = [];
-    const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQGP488InXYjOP4SbgDmeNgPapkgFyMpjWr0ShvACi56yOHNEY3VsdLP3tEHXuFXc3FRRjgaFb2QktM/pub?output=csv";
+    // لينك الشيت الخاص بك بصيغة CSV للربط المباشر
+    const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQGP488InXYjOP4SbgDmeNgPapkgFyMpjWr0ShvACi56yOHNEY3VsdLP3tEHXuFXc3FRRjgaFb2QktM/pub?output=csv';
 
-    async function load() {
-        const res = await fetch(sheetURL);
-        const data = await res.text();
-        const rows = data.split('\n').slice(1);
-        products = rows.map(r => {
-            const c = r.split(',');
-            return { id: c[0], name: c[1], price: parseInt(c[2]), img: c[3]?.trim() };
-        }).filter(p => p.name);
-        render();
+    async function fetchInventory() {
+        try {
+            const response = await fetch(sheetUrl);
+            const csvData = await response.text();
+            const rows = csvData.split('\n').slice(1); // تجاهل الصف الأول (العناوين)
+            
+            const grid = document.getElementById('products-grid');
+            const loading = document.getElementById('loading');
+            grid.innerHTML = '';
+            loading.style.display = 'none';
+
+            rows.forEach(row => {
+                const cols = row.split(',');
+                if (cols.length >= 5) {
+                    const [type, category, img, price, name] = cols;
+                    
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.onclick = () => showEmoji(card);
+                    card.innerHTML = `
+                        <div class="reaction">❤️</div>
+                        <img src="${img.trim()}" alt="${name}" onerror="this.src='https://via.placeholder.com/350x350?text=Eclate+Bag'">
+                        <div class="card-info">
+                            <h3>${name.trim()}</h3>
+                            <span class="price">${price.trim()} EGP</span>
+                            <button class="btn-order">طلب الآن</button>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                }
+            });
+        } catch (error) {
+            console.error('Error fetching sheet:', error);
+            document.getElementById('loading').innerText = 'حدث خطأ أثناء تحميل البيانات.';
+        }
     }
 
-    function render() {
-        document.getElementById('products-grid').innerHTML = products.map(p => `
-            <div class="card">
-                <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/300x400'">
-                <div class="card-info">
-                    <h3>${p.name}</h3>
-                    <span class="price">${p.price} EGP</span>
-                    <button class="btn-add" onclick="addToCart('${p.id}')">ADD TO BAG</button>
-                </div>
-            </div>
-        `).join('');
+    function showEmoji(card) {
+        const emoji = card.querySelector('.reaction');
+        emoji.classList.add('animate-emoji');
+        setTimeout(() => { emoji.classList.remove('animate-emoji'); }, 800);
     }
 
-    function addToCart(id) {
-        const p = products.find(x => x.id == id);
-        if(p) { cart.push(p); updateCart(); toggleCart(true); }
-    }
-
-    function updateCart() {
-        document.getElementById('cart-count').innerText = cart.length;
-        document.getElementById('cart-items').innerHTML = cart.map(i => `
-            <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:0.9rem;">
-                <span>${i.name}</span><strong>${i.price} EGP</strong>
-            </div>
-        `).join('');
-        document.getElementById('cart-total').innerText = cart.reduce((s, i) => s + i.price, 0);
-    }
-
-    function toggleCart(open) {
-        const s = document.getElementById('cart-sidebar');
-        if(open === true) s.classList.add('open');
-        else s.classList.toggle('open');
-    }
-
-    function sendWhatsApp() {
-        if(cart.length === 0) return alert("Your bag is empty!");
-        let msg = "Hello Eclaté, I'd like to order:%0a";
-        cart.forEach(i => msg += `- ${i.name} (${i.price} EGP)%0a`);
-        msg += `%0aTotal: ${document.getElementById('cart-total').innerText} EGP`;
-        window.open(`https://wa.me/201011590702?text=${msg}`);
-    }
-
-    load();
+    // تشغيل السحب عند فتح الصفحة
+    fetchInventory();
 </script>
 </body>
 </html>
