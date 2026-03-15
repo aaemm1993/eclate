@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eclaté - Elegant Bags & Accessories</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { --gold: #d4af37; --black: #0a0a0a; --white: #ffffff; --bg-light: #fdfdfd; }
-        body { font-family: 'Cinzel', serif; margin: 0; background: var(--bg-light); color: var(--black); transition: all 0.3s ease; }
+        
+        /* الحفاظ على الخطوط والأساسيات */
+        body { font-family: 'Cinzel', 'Amiri', serif; margin: 0; background: var(--bg-light); color: var(--black); transition: all 0.3s ease; }
         
         /* Navbar */
         nav { background: var(--black); padding: 12px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--gold); position: sticky; top: 0; z-index: 1000; }
@@ -29,14 +31,17 @@
         /* Grid */
         .container { max-width: 1200px; margin: 50px auto; padding: 0 20px; }
         #products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px; }
-        .loading-msg { grid-column: 1 / -1; color: var(--gold); padding: 80px 0; font-size: 1.2rem; }
 
-        /* Card */
+        /* ميزة الـ Skeleton Loading (تظهر أثناء التحميل) */
+        .skeleton-card { background: #eee; height: 450px; border-radius: 4px; animation: pulse 1.5s infinite ease-in-out; }
+        @keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
+
+        /* Card (نفس تصميمك بالظبط) */
         .card { background: var(--white); border: 1px solid #eee; overflow: hidden; opacity: 0; animation: fadeInUp 0.8s forwards; transition: 0.3s; }
-        .card:hover { transform: translateY(-10px); }
-        .card img { width: 100%; height: 380px; object-fit: cover; }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .card img { width: 100%; height: 380px; object-fit: cover; opacity: 0; transition: opacity 0.5s; } /* تحميل ناعم */
         .card-info { padding: 20px; text-align: center; }
-        .card-info h3 { font-size: 1.1rem; margin-bottom: 10px; }
+        .card-info h3 { font-size: 1.1rem; margin-bottom: 10px; min-height: 2.5em; display: flex; align-items: center; justify-content: center; }
         .price { color: var(--gold); font-weight: 700; font-size: 1.5rem; display: block; margin-bottom: 15px; }
         .btn-order { background: var(--black); color: var(--gold); border: 1px solid var(--gold); padding: 12px; width: 100%; display: inline-block; text-decoration: none; font-weight: 700; transition: 0.3s; }
         .btn-order:hover { background: var(--gold); color: var(--black); }
@@ -49,6 +54,7 @@
 
         /* RTL Specifics */
         [dir="rtl"] .nav-socials a { margin-left: 0; margin-right: 15px; }
+        [dir="rtl"] { font-family: 'Amiri', serif; }
         
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
     </style>
@@ -76,8 +82,7 @@
 
 <div class="container">
     <div id="products-grid">
-        <div class="loading-msg" id="loading-text">Discovering Our Luxury Collection...</div>
-    </div>
+        </div>
 </div>
 
 <footer>
@@ -90,13 +95,12 @@
 </footer>
 
 <script>
-    const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQGP488InXYjOP4SbgDmeNgPapkgFyMpjWr0ShvACi56yOHNEY3VsdLP3tEHXuFXc3FRRjgaFb2QktM/pub?output=csv';
+    const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQGP488InXYjOP4SbgDmeNgPapkgFyMpjWr0ShvAC156yOHNEY3VsdLP3tEHXuFXc3FRRjgaFb2QktM/pub?output=csv';
     let currentLang = 'en';
 
     const translations = {
         en: {
             subtitle: "Elegance That Suits You",
-            loading: "Discovering Our Luxury Collection...",
             order: "Order via WhatsApp",
             copy: "© 2026 ECLATÉ - CURATED LUXURY. ALL RIGHTS RESERVED",
             btn: "العربية",
@@ -104,7 +108,6 @@
         },
         ar: {
             subtitle: "أناقة تليق بكِ",
-            loading: "جاري تحميل تشكيلتنا الفخمة...",
             order: "اطلب عبر واتساب",
             copy: "جميع الحقوق محفوظة لـ إيكلاتيه ٢٠٢٦ ©",
             btn: "English",
@@ -119,34 +122,45 @@
         htmlTag.lang = currentLang;
 
         document.getElementById('hero-subtitle').innerText = translations[currentLang].subtitle;
-        document.getElementById('loading-text').innerText = translations[currentLang].loading;
         document.getElementById('footer-copy').innerText = translations[currentLang].copy;
         document.getElementById('lang-toggle').innerText = translations[currentLang].btn;
         
-        loadData(); // إعادة تحميل البيانات لتحديث أزرار الطلب
+        loadData();
+    }
+
+    // دالة لعرض تأثير التحميل
+    function showSkeletons() {
+        const grid = document.getElementById('products-grid');
+        grid.innerHTML = '<div class="skeleton-card"></div>'.repeat(6);
     }
 
     async function loadData() {
         try {
+            showSkeletons(); // عرض السكيليتون أولاً
             const response = await fetch(sheetUrl);
             const csvData = await response.text();
-            const rows = csvData.split('\n').slice(1);
+            
+            // ميزة معالجة الفواصل في الأسماء (Regex)
+            const rows = csvData.split('\n').slice(1).filter(row => row.trim() !== '');
             const grid = document.getElementById('products-grid');
             grid.innerHTML = '';
 
             rows.forEach((row, index) => {
-                const cols = row.split(',');
+                const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
                 if (cols.length >= 4) {
-                    const name = cols[1].trim();
-                    const price = cols[2].trim();
-                    const img = cols[3].trim();
-                    const waLink = `https://wa.me/201011590702?text=${encodeURIComponent(translations[currentLang].waMsg + name)}`;
+                    const name = cols[1].replace(/"/g, '').trim();
+                    const price = cols[2].replace(/"/g, '').trim();
+                    const img = cols[3].replace(/"/g, '').trim();
+                    
+                    // ميزة رسالة الواتساب المتطورة (الاسم + السعر)
+                    const fullWaMsg = `${translations[currentLang].waMsg}${name} (${price} EGP)`;
+                    const waLink = `https://wa.me/201011590702?text=${encodeURIComponent(fullWaMsg)}`;
 
                     const card = document.createElement('div');
                     card.className = 'card';
                     card.style.animationDelay = `${index * 0.1}s`; 
                     card.innerHTML = `
-                        <img src="${img}" alt="${name}">
+                        <img src="${img}" alt="${name}" onload="this.style.opacity=1" loading="lazy">
                         <div class="card-info">
                             <h3>${name}</h3>
                             <span class="price">${price} EGP</span>
@@ -156,7 +170,9 @@
                     grid.appendChild(card);
                 }
             });
-        } catch (e) { console.log("Error"); }
+        } catch (e) { 
+            document.getElementById('products-grid').innerHTML = '<div style="grid-column:1/-1; text-align:center; color:var(--gold);">Error loading collection. Please refresh.</div>';
+        }
     }
     loadData();
 </script>
