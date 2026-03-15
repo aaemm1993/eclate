@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr" id="main-html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,76 +7,49 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { 
-            --gold: #d4af37; 
-            --black: #0a0a0a; 
-            --white: #ffffff; 
-            --bg-light: #fdfdfd;
-        }
-
-        body { font-family: 'Cinzel', serif; margin: 0; background: var(--bg-light); color: var(--black); overflow-x: hidden; text-align: center; }
+        :root { --gold: #d4af37; --black: #0a0a0a; --white: #ffffff; --bg-light: #fdfdfd; }
+        body { font-family: 'Cinzel', serif; margin: 0; background: var(--bg-light); color: var(--black); transition: all 0.3s ease; }
         
         /* Navbar */
-        nav { background: var(--black); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--gold); position: sticky; top: 0; z-index: 1000; }
-        .nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-        .nav-logo-img { height: 40px; width: auto; }
-        .nav-logo-text { color: var(--gold); font-size: 1.6rem; font-weight: 700; letter-spacing: 3px; }
-        .nav-socials a { color: var(--gold); margin-right: 15px; font-size: 1.3rem; transition: 0.3s; }
+        nav { background: var(--black); padding: 12px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--gold); position: sticky; top: 0; z-index: 1000; }
+        .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .nav-logo-img { height: 35px; width: auto; }
+        .nav-logo-text { color: var(--gold); font-size: 1.5rem; font-weight: 700; letter-spacing: 2px; }
+        
+        .nav-right { display: flex; align-items: center; gap: 20px; }
+        .lang-btn { color: var(--gold); background: none; border: 1px solid var(--gold); padding: 5px 12px; cursor: pointer; font-family: inherit; font-weight: bold; transition: 0.3s; border-radius: 4px; }
+        .lang-btn:hover { background: var(--gold); color: var(--black); }
 
         /* Hero */
-        .hero { 
-            height: 70vh; 
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('hero.jpg'); 
-            background-size: cover; background-position: center; 
-            display: flex; flex-direction: column; justify-content: center; align-items: center; 
-            padding: 0 20px;
-        }
-        .hero h1 { color: var(--gold); font-size: clamp(3rem, 10vw, 5.5rem); margin: 0; letter-spacing: 12px; font-weight: 900; }
-        .hero p { color: var(--white); font-size: 1.2rem; margin-top: 10px; letter-spacing: 4px; opacity: 0.8; }
+        .hero { height: 75vh; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('hero.jpg'); background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: var(--white); }
+        .hero-logo { width: 130px; margin-bottom: 15px; }
+        .hero h1 { color: var(--gold); font-size: clamp(3rem, 10vw, 5rem); margin: 0; letter-spacing: 10px; }
+        .hero p { font-size: 1.2rem; margin-top: 10px; letter-spacing: 3px; }
 
-        /* Products Grid & Loading Message */
-        .container { max-width: 1200px; margin: 60px auto; padding: 0 20px; min-height: 300px; }
-        
-        /* تعديل جملة التحميل لتكون في المنتصف وبشكل فخم */
-        #products-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-            gap: 40px; 
-            justify-content: center;
-            align-items: center;
-        }
-        .loading-msg { 
-            grid-column: 1 / -1; 
-            color: var(--gold); 
-            font-size: 1.2rem; 
-            letter-spacing: 2px;
-            padding: 50px 0;
-        }
+        /* Grid */
+        .container { max-width: 1200px; margin: 50px auto; padding: 0 20px; }
+        #products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px; }
+        .loading-msg { grid-column: 1 / -1; color: var(--gold); padding: 80px 0; font-size: 1.2rem; }
 
-        /* Product Card */
-        .card { 
-            background: var(--white); border-radius: 2px; overflow: hidden; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #eee;
-            opacity: 0; animation: fadeInUp 0.8s ease-out forwards;
-        }
-        .card img { width: 100%; height: 400px; object-fit: cover; }
-        .card-info { padding: 25px; }
-        .card-info h3 { margin-bottom: 10px; font-size: 1.1rem; letter-spacing: 1px; }
-        .price { color: var(--gold); font-weight: 700; font-size: 1.5rem; display: block; margin-bottom: 20px; }
-        .btn-order { 
-            background: var(--black); color: var(--gold); border: 1px solid var(--gold); 
-            padding: 12px; width: 100%; font-weight: 700; text-decoration: none; 
-            display: inline-block; transition: 0.3s; letter-spacing: 2px; font-size: 0.8rem;
-        }
+        /* Card */
+        .card { background: var(--white); border: 1px solid #eee; overflow: hidden; opacity: 0; animation: fadeInUp 0.8s forwards; transition: 0.3s; }
+        .card:hover { transform: translateY(-10px); }
+        .card img { width: 100%; height: 380px; object-fit: cover; }
+        .card-info { padding: 20px; text-align: center; }
+        .card-info h3 { font-size: 1.1rem; margin-bottom: 10px; }
+        .price { color: var(--gold); font-weight: 700; font-size: 1.5rem; display: block; margin-bottom: 15px; }
+        .btn-order { background: var(--black); color: var(--gold); border: 1px solid var(--gold); padding: 12px; width: 100%; display: inline-block; text-decoration: none; font-weight: 700; transition: 0.3s; }
         .btn-order:hover { background: var(--gold); color: var(--black); }
 
         /* Footer */
-        footer { background: var(--black); padding: 60px 20px; text-align: center; border-top: 1px solid var(--gold); }
-        .footer-socials { display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; }
-        .footer-socials a { color: var(--gold); font-size: 2.2rem; transition: 0.3s; }
-        .footer-socials a:hover { transform: scale(1.1); color: var(--white); }
-        footer p { color: var(--gold); opacity: 0.6; font-size: 0.8rem; letter-spacing: 2px; margin: 0; }
+        footer { background: var(--black); padding: 40px 20px; text-align: center; border-top: 1px solid var(--gold); color: var(--gold); }
+        .footer-socials { display: flex; justify-content: center; gap: 25px; margin-bottom: 20px; }
+        .footer-socials a { color: var(--gold); font-size: 2rem; transition: 0.3s; }
+        footer p { opacity: 0.7; font-size: 0.8rem; letter-spacing: 1px; }
 
+        /* RTL Specifics */
+        [dir="rtl"] .nav-socials a { margin-left: 0; margin-right: 15px; }
+        
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
@@ -87,20 +60,23 @@
         <img src="logo.png" alt="" class="nav-logo-img" onerror="this.style.display='none'">
         <span class="nav-logo-text">ECLATÉ</span>
     </div>
-    <div class="nav-socials">
-        <a href="https://www.instagram.com/eclate_eg/" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.tiktok.com/@eclate_eg" target="_blank"><i class="fab fa-tiktok"></i></a>
+    <div class="nav-right">
+        <button class="lang-btn" onclick="toggleLanguage()" id="lang-toggle">العربية</button>
+        <div class="nav-socials">
+            <a href="https://www.instagram.com/eclate_eg/" target="_blank" style="color: var(--gold); margin-left: 15px;"><i class="fab fa-instagram"></i></a>
+        </div>
     </div>
 </nav>
 
 <section class="hero">
-    <h1>ECLATÉ</h1>
-    <p>أناقة تليق بكِ</p>
+    <img src="logo.png" alt="" class="hero-logo" onerror="this.style.display='none'">
+    <h1 id="hero-title">ECLATÉ</h1>
+    <p id="hero-subtitle">Elegance That Suits You</p>
 </section>
 
 <div class="container">
     <div id="products-grid">
-        <div class="loading-msg">جاري تحميل تشكيلتنا الفخمة...</div>
+        <div class="loading-msg" id="loading-text">Discovering Our Luxury Collection...</div>
     </div>
 </div>
 
@@ -110,12 +86,45 @@
         <a href="https://www.tiktok.com/@eclate_eg" target="_blank"><i class="fab fa-tiktok"></i></a>
         <a href="https://www.instagram.com/eclate_eg/" target="_blank"><i class="fab fa-instagram"></i></a>
     </div>
-    <p>.ECLATÉ - CURATED LUXURY. ALL RIGHTS RESERVED 2026 ©</p>
+    <p id="footer-copy">© 2026 ECLATÉ - CURATED LUXURY. ALL RIGHTS RESERVED</p>
 </footer>
 
 <script>
     const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQGP488InXYjOP4SbgDmeNgPapkgFyMpjWr0ShvACi56yOHNEY3VsdLP3tEHXuFXc3FRRjgaFb2QktM/pub?output=csv';
-    const whatsappNumber = '201011590702';
+    let currentLang = 'en';
+
+    const translations = {
+        en: {
+            subtitle: "Elegance That Suits You",
+            loading: "Discovering Our Luxury Collection...",
+            order: "Order via WhatsApp",
+            copy: "© 2026 ECLATÉ - CURATED LUXURY. ALL RIGHTS RESERVED",
+            btn: "العربية",
+            waMsg: "Hello Eclaté, I would like to order: "
+        },
+        ar: {
+            subtitle: "أناقة تليق بكِ",
+            loading: "جاري تحميل تشكيلتنا الفخمة...",
+            order: "اطلب عبر واتساب",
+            copy: "جميع الحقوق محفوظة لـ إيكلاتيه ٢٠٢٦ ©",
+            btn: "English",
+            waMsg: "أهلاً إيكلاتيه، أرغب في طلب: "
+        }
+    };
+
+    function toggleLanguage() {
+        currentLang = currentLang === 'en' ? 'ar' : 'en';
+        const htmlTag = document.getElementById('main-html');
+        htmlTag.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+        htmlTag.lang = currentLang;
+
+        document.getElementById('hero-subtitle').innerText = translations[currentLang].subtitle;
+        document.getElementById('loading-text').innerText = translations[currentLang].loading;
+        document.getElementById('footer-copy').innerText = translations[currentLang].copy;
+        document.getElementById('lang-toggle').innerText = translations[currentLang].btn;
+        
+        loadData(); // إعادة تحميل البيانات لتحديث أزرار الطلب
+    }
 
     async function loadData() {
         try {
@@ -131,25 +140,23 @@
                     const name = cols[1].trim();
                     const price = cols[2].trim();
                     const img = cols[3].trim();
-                    const waMessage = encodeURIComponent(`أهلاً Eclaté، أرغب في طلب: ${name}`);
+                    const waLink = `https://wa.me/201011590702?text=${encodeURIComponent(translations[currentLang].waMsg + name)}`;
 
                     const card = document.createElement('div');
                     card.className = 'card';
                     card.style.animationDelay = `${index * 0.1}s`; 
                     card.innerHTML = `
-                        <img src="${img}" alt="${name}" onerror="this.src='https://via.placeholder.com/400x500?text=Eclaté'">
+                        <img src="${img}" alt="${name}">
                         <div class="card-info">
                             <h3>${name}</h3>
                             <span class="price">${price} EGP</span>
-                            <a href="https://wa.me/${whatsappNumber}?text=${waMessage}" target="_blank" class="btn-order">Order via WhatsApp</a>
+                            <a href="${waLink}" target="_blank" class="btn-order">${translations[currentLang].order}</a>
                         </div>
                     `;
                     grid.appendChild(card);
                 }
             });
-        } catch (e) { 
-            document.getElementById('products-grid').innerHTML = '<div class="loading-msg">نعتذر، حدث خطأ في تحميل المنتجات.</div>';
-        }
+        } catch (e) { console.log("Error"); }
     }
     loadData();
 </script>
