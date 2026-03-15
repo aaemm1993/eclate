@@ -3,74 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eclaté - Curated Luxury Bags</title>
+    <title>Eclaté - Elegant Bags & Accessories</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { 
-            --gold: #d4af37; /* ذهبي ملكي مطابقة للوجو */
+            --gold: #d4af37; /* الذهبي الملكي المعتمد */
             --black: #0a0a0a; 
             --white: #ffffff; 
-            --bg-light: #f8f8f8;
+            --bg-light: #f9f9f9;
         }
 
-        /* تطبيق خط Cinzel على الموقع بالكامل لإعطاء بصمة فريدة */
-        body { font-family: 'Cinzel', serif; margin: 0; background: var(--bg-light); color: var(--black); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+        /* تطبيق الخط الموحد على كل الموقع */
+        body { font-family: 'Cinzel', serif; margin: 0; background: var(--bg-light); color: var(--black); overflow-x: hidden; }
         
         /* Navbar */
-        nav { background: var(--black); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--gold); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-        .nav-brand { display: flex; align-items: center; gap: 15px; text-decoration: none; }
-        .nav-logo-img { height: 45px; width: auto; }
-        .nav-logo-text { color: var(--gold); font-size: 1.8rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; }
+        nav { background: var(--black); padding: 12px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--gold); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .nav-logo-img { height: 42px; width: auto; }
+        .nav-logo-text { color: var(--gold); font-size: 1.8rem; font-weight: 700; letter-spacing: 3px; }
         
-        .nav-socials a { color: var(--gold); margin-right: 20px; font-size: 1.4rem; transition: 0.3s ease; }
-        .nav-socials a:hover { color: var(--white); transform: translateY(-3px); }
+        .nav-socials a { color: var(--gold); margin-right: 18px; font-size: 1.3rem; transition: 0.3s; }
+        .nav-socials a:hover { color: var(--white); transform: scale(1.1); }
 
         /* Hero Section */
         .hero { 
-            height: 85vh; 
+            height: 80vh; 
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('hero.jpg'); 
             background-size: cover; background-position: center; 
             display: flex; flex-direction: column; justify-content: center; align-items: center; 
             text-align: center; padding: 0 20px;
         }
-        .hero-logo { width: clamp(180px, 30vw, 300px); height: auto; margin-bottom: 20px; animation: fadeInDown 1.5s ease-out; }
-        /* الكلمة الكبيرة بخط Cinzel الوزن الثقيل */
-        .hero h1 { color: var(--gold); font-size: clamp(3.5rem, 12vw, 6.5rem); margin: 0; letter-spacing: 18px; font-weight: 900; animation: fadeInUp 1.2s ease-out; text-transform: uppercase; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-        .hero p { color: var(--white); font-size: 1.5rem; margin-top: 15px; letter-spacing: 6px; opacity: 0.9; font-weight: 400; }
+        .hero-logo { width: 150px; height: auto; margin-bottom: 10px; animation: fadeInDown 1.5s ease-out; }
+        .hero h1 { color: var(--gold); font-size: clamp(3.5rem, 12vw, 6rem); margin: 0; letter-spacing: 15px; font-weight: 900; animation: fadeInUp 1.2s ease-out; }
+        .hero p { color: var(--white); font-size: 1.4rem; margin-top: 10px; letter-spacing: 5px; opacity: 0.9; }
 
-        /* Products Grid */
-        .container { max-width: 1260px; margin: 70px auto; padding: 0 25px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 40px; }
+        /* Container & Grid */
+        .container { max-width: 1240px; margin: 60px auto; padding: 0 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 40px; }
         
-        /* Card Style */
+        /* Product Card */
         .card { 
             background: var(--white); border-radius: 4px; overflow: hidden; 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.03);
-            opacity: 0; animation: fadeInUp 1s ease-out forwards; transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.02);
+            opacity: 0; animation: fadeInUp 1s ease-out forwards; transition: 0.4s;
         }
-        .card:hover { transform: translateY(-12px); box-shadow: 0 20px 45px rgba(0,0,0,0.1); }
-        .card img { width: 100%; height: 420px; object-fit: cover; transition: transform 0.6s; }
-        .card:hover img { transform: scale(1.05); }
-
-        .card-info { padding: 30px; text-align: center; }
-        .card-info h3 { margin: 0 0 12px; font-size: 1.2rem; color: var(--black); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
-        .price { color: var(--gold); font-weight: 700; font-size: 1.7rem; display: block; margin-bottom: 25px; letter-spacing: 1px; }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+        .card img { width: 100%; height: 400px; object-fit: cover; }
+        
+        .card-info { padding: 25px; text-align: center; }
+        .card-info h3 { margin: 0 0 10px; font-size: 1.2rem; color: var(--black); font-weight: 700; letter-spacing: 1px; }
+        .price { color: var(--gold); font-weight: 700; font-size: 1.7rem; display: block; margin-bottom: 20px; }
         
         /* Order Button */
         .btn-order { 
             background: var(--black); color: var(--gold); border: 2px solid var(--gold); 
-            padding: 15px; width: 100%; font-weight: 700; cursor: pointer; 
+            padding: 14px; width: 100%; font-weight: 700; cursor: pointer; 
             text-decoration: none; display: inline-block; transition: 0.3s;
-            text-transform: uppercase; letter-spacing: 3px; font-size: 0.9rem;
+            text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem;
         }
         .btn-order:hover { background: var(--gold); color: var(--black); }
 
         /* Footer */
-        footer { background: var(--black); padding: 60px 20px; text-align: center; border-top: 2px solid var(--gold); }
-        .footer-socials a { color: var(--gold); font-size: 2.5rem; margin: 0 20px; transition: 0.3s; display: inline-block; }
+        footer { background: var(--black); padding: 50px 20px; text-align: center; border-top: 2px solid var(--gold); }
+        .footer-socials a { color: var(--gold); font-size: 2.2rem; margin: 0 20px; transition: 0.3s; display: inline-block; }
         .footer-socials a:hover { transform: scale(1.2); color: var(--white); }
-        footer p { color: var(--gold); opacity: 0.7; margin-top: 30px; letter-spacing: 2px; font-size: 0.9rem; text-transform: uppercase; }
+        footer p { color: var(--gold); opacity: 0.7; margin-top: 25px; letter-spacing: 2px; font-size: 0.9rem; }
 
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeInDown { from { opacity: 0; transform: translateY(-40px); } to { opacity: 1; transform: translateY(0); } }
@@ -96,7 +94,7 @@
 </section>
 
 <div class="container">
-    <div class="grid" id="products-grid">جاري تحميل تشكيلتنا الفخمة...</div>
+    <div class="grid" id="products-grid"></div>
 </div>
 
 <footer>
@@ -105,7 +103,7 @@
         <a href="https://www.tiktok.com/@eclate_eg" target="_blank"><i class="fab fa-tiktok"></i></a>
         <a href="https://wa.me/201011590702" target="_blank"><i class="fab fa-whatsapp"></i></a>
     </div>
-    <p>&copy; 2026 ECLATÉ - CURATED LUXURY. ALL RIGHTS RESERVED.</p>
+    <p>&copy; 2026 ECLATÉ. ALL RIGHTS RESERVED.</p>
 </footer>
 
 <script>
@@ -126,13 +124,13 @@
                     const name = cols[1].trim();
                     const price = cols[2].trim();
                     const img = cols[3].trim();
-                    const waMessage = encodeURIComponent(`أهلاً Eclaté، أرغب في طلب هذه القطعة المميزة: ${name}`);
+                    const waMessage = encodeURIComponent(`أهلاً Eclaté، أرغب في طلب هذه القطعة: ${name}`);
 
                     const card = document.createElement('div');
                     card.className = 'card';
                     card.style.animationDelay = `${index * 0.1s}`; 
                     card.innerHTML = `
-                        <img src="${img}" alt="${name}" onerror="this.src='https://via.placeholder.com/400x520?text=Eclaté+Lux'">
+                        <img src="${img}" alt="${name}" onerror="this.src='https://via.placeholder.com/400x520?text=Eclaté'">
                         <div class="card-info">
                             <h3>${name}</h3>
                             <span class="price">${price} EGP</span>
