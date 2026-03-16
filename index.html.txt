@@ -14,8 +14,40 @@
         body { font-family: 'Cairo', sans-serif; overflow-x: hidden; background-color: #fff; }
 
         .navbar { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .navbar-brand { font-weight: 800; letter-spacing: 2px; color: var(--main-color) !important; display: flex; align-items: center; gap: 10px; }
-        .nav-link { color: var(--main-color) !important; font-weight: 600; margin: 0 10px; }
+        .navbar-brand { 
+            font-weight: 800; 
+            letter-spacing: 3px; 
+            color: var(--gold-color) !important; /* خليناه ذهبي عشان البراند ينطق */
+            display: flex; align-items: center; gap: 10px; 
+        }
+
+        .nav-link { 
+            color: var(--main-color) !important; 
+            font-weight: 600; 
+            margin: 0 10px; 
+            position: relative; 
+            transition: 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--gold-color) !important;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background-color: var(--gold-color);
+            transition: 0.3s;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
 
         .hero { 
             height: 90vh; 
