@@ -76,15 +76,67 @@ nav {
         /* Grid & Cards */
         .container { max-width: 1200px; margin: 50px auto; padding: 0 20px; }
         #products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px; }
-        .card { background: var(--white); border: 1px solid #eee; overflow: hidden; transition: 0.4s; position: relative; opacity: 0; animation: fadeInUp 0.8s forwards; }
-        .card:hover { transform: translateY(-10px); border-color: var(--gold); }
-        .img-container { width: 100%; height: 380px; overflow: hidden; }
-        .card img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .card:hover img { transform: scale(1.05); }
-        .card-info { padding: 20px; text-align: center; position: relative; }
-        .price { color: var(--gold); font-weight: 700; font-size: 1.5rem; display: block; margin-bottom: 15px; }
-        .btn-add { background: var(--black); color: var(--gold); border: 1px solid var(--gold); padding: 12px; width: 100%; cursor: pointer; font-weight: 700; transition: 0.3s; }
-        .btn-add:hover { background: var(--gold); color: var(--black); }
+        .card { 
+    background: #111; 
+    border: 2px solid var(--gold); 
+    overflow: hidden; 
+    transition: all 0.5s ease; 
+    position: relative; 
+    opacity: 0; 
+    animation: fadeInUp 0.8s forwards;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    padding: 10px; 
+    border-radius: 0;
+}
+
+.card:hover { 
+    transform: translateY(-10px) scale(1.02); 
+    border-color: var(--white); 
+    box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3); 
+}
+
+.img-container { 
+    width: 100%; 
+    height: 380px; 
+    overflow: hidden; 
+    border: 1px solid var(--gold); 
+}
+
+.card img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    transition: 0.6s ease; 
+}
+
+.card:hover img { transform: scale(1.1); }
+
+.card-info { padding: 20px 5px; text-align: center; }
+
+.card-info h3 { color: var(--white); font-size: 1.2rem; margin: 0; letter-spacing: 1px; }
+
+.price { 
+    color: var(--gold); 
+    font-weight: 900; 
+    font-size: 1.6rem; 
+    display: block; 
+    margin: 15px 0; 
+}
+
+.btn-add { 
+    background: transparent; 
+    color: var(--gold); 
+    border: 1px solid var(--gold); 
+    padding: 12px; 
+    width: 100%; 
+    cursor: pointer; 
+    font-weight: 700; 
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: 0.3s; 
+}
+
+.btn-add:hover { background: var(--gold); color: var(--black); }
 
         /* Cart & Messages */
         .added-msg { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); color: var(--gold); font-weight: bold; opacity: 0; transition: 0.3s; pointer-events: none; }
