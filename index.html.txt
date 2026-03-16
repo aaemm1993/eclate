@@ -15,13 +15,23 @@
 
         /* Navbar Customization */
         .navbar { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .navbar-brand { font-weight: 800; letter-spacing: 2px; color: var(--main-color) !important; }
+        .navbar-brand { 
+    font-weight: 800; 
+    letter-spacing: 2px; 
+    color: var(--main-color) !important;
+    display: flex;
+    align-items: center; /* لمحاذاة النص مع أي لوجو داخله */
+    gap: 10px; /* مسافة صغيرة بين اللوجو والاسم */
+}
         .nav-link { color: var(--main-color) !important; font-weight: 600; margin: 0 10px; }
 
         /* Hero Section with Animation */
         .hero { 
             height: 90vh; 
-            background: linear-gradient(45deg, rgba(0,0,0,0.7), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=2070') center/cover;
+            background-image: linear-gradient(45deg, rgba(0,0,0,0.6), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop');
+background-position: center;
+background-size: cover;
+background-repeat: no-repeat;
             display: flex; align-items: center; color: white; text-align: center;
         }
 
@@ -60,14 +70,21 @@
 </head>
 <body>
 
-    <a href="https://wa.me/201234567890" class="whatsapp-btn" target="_blank">
+    <a href="https://wa.me/201011590702" class="whatsapp-btn" target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>
 
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
-            <a class="navbar-brand fs-2" href="#">ECLATÉ</a>
-            <div class="d-flex align-items-center order-lg-last">
+            <a class="navbar-brand fs-2" href="#">
+    <i class="fas fa-shopping-bag fs-4 shadow-sm"></i> 
+    <span>ECLATÉ</span>
+</a>
+            <div class="d-flex align-items-center order-lg-last ms-2">
+                <a href="https://www.instagram.com/eclate_eg/" target="_blank" class="text-dark px-2"><i class="fab fa-instagram fs-4"></i></a>
+                <a href="https://www.tiktok.com/@eclate_eg" target="_blank" class="text-dark px-2"><i class="fab fa-tiktok fs-4"></i></a>
+                <a href="https://wa.me/201011590702" target="_blank" class="text-dark px-2"><i class="fab fa-whatsapp fs-4"></i></a>
+                
                 <div class="position-relative cursor-pointer px-3" onclick="toggleCart()">
                     <i class="fas fa-shopping-bag fs-4"></i>
                     <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
@@ -96,18 +113,8 @@
 
     <section id="shop" class="container py-5 mt-5">
         <h2 class="text-center fw-bold mb-5">الأكثر مبيعاً</h2>
-        <div class="row g-4">
-            <div class="col-6 col-md-4">
-                <div class="product-card shadow-sm">
-                    <div class="product-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1000" alt="Product">
-                        <button class="btn-add-cart" onclick="addToCart('فستان صيفي فاخر', 1250)">إضافة للسلة</button>
-                    </div>
-                    <div class="p-3 text-center">
-                        <h5 class="fw-bold">فستان صيفي فاخر</h5>
-                        <p class="text-secondary">1,250 EGP</p>
-                    </div>
-                </div>
+       <div class="row g-4" id="products-container">
+    </div>
             </div>
             <div class="col-6 col-md-4">
                 <div class="product-card shadow-sm">
@@ -138,13 +145,61 @@
             <span>الإجمالي:</span>
             <span id="cart-total">0 EGP</span>
         </div>
-        <button class="btn btn-dark w-100 py-3 rounded-0">إتمام الشراء</button>
+        <button class="btn btn-dark w-100 py-3 rounded-0" onclick="checkoutWhatsApp()">إتمام الشراء عبر واتساب</button>
     </div>
 
     <script>
         let cart = [];
         let total = 0;
+const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQGP488InXYjOP4SbgDmeNgPapkgFyMpjWr0ShvACi56yOHNEY3VsdLP3tEHXuFXc3FRRjgaFb2QktM/pub?output=csv';
+// دالة لجلب البيانات من جوجل شيت وعرضها
+async function loadProductsFromSheet() {
+    try {
+        // بنطلب البيانات من الرابط بصيغة CSV
+        const response = await fetch(sheetURL);
+        const data = await response.text();
+        
+        // تقسيم البيانات لصفوف وتجاهل صف العناوين الأول
+        const rows = data.split('\n').slice(1);
+        const container = document.getElementById('products-container');
+        
+        // تنظيف المكان قبل وضع المنتجات الجديدة
+        container.innerHTML = '';
 
+        rows.forEach(row => {
+            // تقسيم الصف لأعمدة (الاسم، السعر، الصورة)
+            const columns = row.split(',');
+            
+            // التأكد إن الصف فيه بيانات كافية
+            if (columns.length >= 3) {
+                const name = columns[0].trim();
+                const price = columns[1].trim();
+                const image = columns[2].trim();
+
+                // إضافة كارد المنتج في الصفحة
+                container.innerHTML += `
+                    <div class="col-6 col-md-4">
+                        <div class="product-card shadow-sm text-center">
+                            <div class="product-img-wrapper">
+                                <img src="${image}" alt="${name}">
+                                <button class="btn-add-cart" onclick="addToCart('${name}', ${price})">إضافة للسلة</button>
+                            </div>
+                            <div class="p-3">
+                                <h5 class="fw-bold">${name}</h5>
+                                <p class="text-secondary">${price} EGP</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+    } catch (error) {
+        console.error('حدث خطأ أثناء تحميل المنتجات:', error);
+    }
+}
+
+// تشغيل الدالة بمجرد تحميل الصفحة
+window.addEventListener('load', loadProductsFromSheet);
         function toggleCart() {
             document.getElementById('cartSidebar').classList.toggle('active');
             document.getElementById('overlay').style.display = 
@@ -166,12 +221,43 @@
             count.innerText = cart.length;
             totalEl.innerText = total + " EGP";
             
-            list.innerHTML = cart.map(item => `
-                <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
-                    <span>${item.name}</span>
-                    <span class="fw-bold">${item.price} EGP</span>
+            list.innerHTML = cart.map((item, index) => `
+                <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
+                    <div>
+                        <p class="mb-0 fw-bold">${item.name}</p>
+                        <small class="text-secondary">${item.price} EGP</small>
+                    </div>
+                    <button class="btn btn-sm text-danger" onclick="removeFromCart(${index})">
+                        <i class="fas fa-trash"></i>
+                    </button>
                 </div>
             `).join('');
+        }// دالة لحذف منتج معين من السلة
+        function removeFromCart(index) {
+            total -= cart[index].price; // طرح السعر من الإجمالي
+            cart.splice(index, 1); // إزالة العنصر من المصفوفة
+            updateCartUI(); // تحديث الشكل
+        }
+
+        // دالة إرسال الطلب للواتساب
+        function checkoutWhatsApp() {
+            if (cart.length === 0) {
+                alert("سلتك فارغة!");
+                return;
+            }
+
+            let phoneNumber = "201011590702"; // ضع رقمك هنا مفتاح الدولة ثم الرقم
+            let message = "مرحباً Eclaté Egypt، أريد طلب المنتجات التالية:%0a%0a";
+            
+            cart.forEach((item, i) => {
+                message += `${i + 1}- ${item.name} (${item.price} EGP)%0a`;
+            });
+
+            message += `%0a*الإجمالي: ${total} EGP*`;
+            message += "%0a%0aهل المنتجات متوفرة؟";
+
+            // فتح رابط الواتساب
+            window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
         }
     </script>
 
