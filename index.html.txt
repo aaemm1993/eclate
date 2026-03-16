@@ -13,29 +13,17 @@
         :root { --main-color: #1a1a1a; --gold-color: #c5a059; }
         body { font-family: 'Cairo', sans-serif; overflow-x: hidden; background-color: #fff; }
 
-        /* Navbar Customization */
         .navbar { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .navbar-brand { 
-    font-weight: 800; 
-    letter-spacing: 2px; 
-    color: var(--main-color) !important;
-    display: flex;
-    align-items: center; /* لمحاذاة النص مع أي لوجو داخله */
-    gap: 10px; /* مسافة صغيرة بين اللوجو والاسم */
-}
+        .navbar-brand { font-weight: 800; letter-spacing: 2px; color: var(--main-color) !important; display: flex; align-items: center; gap: 10px; }
         .nav-link { color: var(--main-color) !important; font-weight: 600; margin: 0 10px; }
 
-        /* Hero Section with Animation */
         .hero { 
             height: 90vh; 
             background-image: linear-gradient(45deg, rgba(0,0,0,0.6), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop');
-background-position: center;
-background-size: cover;
-background-repeat: no-repeat;
+            background-position: center; background-size: cover; background-repeat: no-repeat;
             display: flex; align-items: center; color: white; text-align: center;
         }
 
-        /* Product Cards */
         .product-card { border: none; overflow: hidden; position: relative; transition: 0.4s; }
         .product-img-wrapper { position: relative; overflow: hidden; height: 400px; }
         .product-img-wrapper img { transition: 0.6s; object-fit: cover; height: 100%; width: 100%; }
@@ -46,7 +34,6 @@ background-repeat: no-repeat;
         }
         .product-card:hover .btn-add-cart { bottom: 0; }
 
-        /* Floating WhatsApp */
         .whatsapp-btn { 
             position: fixed; bottom: 30px; left: 30px; background: #25d366; 
             color: white; width: 60px; height: 60px; border-radius: 50%; 
@@ -55,17 +42,13 @@ background-repeat: no-repeat;
         }
         .whatsapp-btn:hover { transform: scale(1.1); color: white; }
 
-        /* Shopping Cart Sidebar */
         .cart-sidebar { 
             position: fixed; top: 0; right: -400px; width: 350px; height: 100%; 
             background: white; z-index: 1050; box-shadow: -5px 0 15px rgba(0,0,0,0.1); 
             transition: 0.5s; padding: 20px; 
         }
         .cart-sidebar.active { right: 0; }
-        .cart-overlay { 
-            display: none; position: fixed; top: 0; left: 0; width: 100%; 
-            height: 100%; background: rgba(0,0,0,0.5); z-index: 1040; 
-        }
+        .cart-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1040; }
     </style>
 </head>
 <body>
@@ -77,14 +60,13 @@ background-repeat: no-repeat;
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
             <a class="navbar-brand fs-2" href="#">
-    <i class="fas fa-shopping-bag fs-4 shadow-sm"></i> 
-    <span>ECLATÉ</span>
-</a>
+                <i class="fas fa-shopping-bag fs-4 shadow-sm"></i> 
+                <span>ECLATÉ</span>
+            </a>
             <div class="d-flex align-items-center order-lg-last ms-2">
                 <a href="https://www.instagram.com/eclate_eg/" target="_blank" class="text-dark px-2"><i class="fab fa-instagram fs-4"></i></a>
                 <a href="https://www.tiktok.com/@eclate_eg" target="_blank" class="text-dark px-2"><i class="fab fa-tiktok fs-4"></i></a>
                 <a href="https://wa.me/201011590702" target="_blank" class="text-dark px-2"><i class="fab fa-whatsapp fs-4"></i></a>
-                
                 <div class="position-relative cursor-pointer px-3" onclick="toggleCart()">
                     <i class="fas fa-shopping-bag fs-4"></i>
                     <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
@@ -113,22 +95,7 @@ background-repeat: no-repeat;
 
     <section id="shop" class="container py-5 mt-5">
         <h2 class="text-center fw-bold mb-5">الأكثر مبيعاً</h2>
-       <div class="row g-4" id="products-container">
-    </div>
-            </div>
-            <div class="col-6 col-md-4">
-                <div class="product-card shadow-sm">
-                    <div class="product-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1539109132304-64f45a89ceb8?q=80&w=1000" alt="Product">
-                        <button class="btn-add-cart" onclick="addToCart('طقم سهرة كلاسيك', 2100)">إضافة للسلة</button>
-                    </div>
-                    <div class="p-3 text-center">
-                        <h5 class="fw-bold">طقم سهرة كلاسيك</h5>
-                        <p class="text-secondary">2,100 EGP</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div class="row g-4" id="products-container"></div>
     </section>
 
     <div class="cart-overlay" id="overlay" onclick="toggleCart()"></div>
@@ -151,55 +118,44 @@ background-repeat: no-repeat;
     <script>
         let cart = [];
         let total = 0;
-const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQGP488InXYjOP4SbgDmeNgPapkgFyMpjWr0ShvACi56yOHNEY3VsdLP3tEHXuFXc3FRRjgaFb2QktM/pub?output=csv';
-// دالة لجلب البيانات من جوجل شيت وعرضها
-async function loadProductsFromSheet() {
-    try {
-        // بنطلب البيانات من الرابط بصيغة CSV
-        const response = await fetch(sheetURL);
-        const data = await response.text();
-        
-        // تقسيم البيانات لصفوف وتجاهل صف العناوين الأول
-        const rows = data.split('\n').slice(1);
-        const container = document.getElementById('products-container');
-        
-        // تنظيف المكان قبل وضع المنتجات الجديدة
-        container.innerHTML = '';
+        const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQGP488InXYjOP4SbgDmeNgPapkgFyMpjWr0ShvACi56yOHNEY3VsdLP3tEHXuFXc3FRRjgaFb2QktM/pub?output=csv';
 
-        rows.forEach(row => {
-            // تقسيم الصف لأعمدة (الاسم، السعر، الصورة)
-            const columns = row.split(',');
-            
-            // التأكد إن الصف فيه بيانات كافية
-            if (columns.length >= 3) {
-                const name = columns[0].trim();
-                const price = columns[1].trim();
-                const image = columns[2].trim();
+        async function loadProductsFromSheet() {
+            try {
+                const response = await fetch(sheetURL);
+                const data = await response.text();
+                const rows = data.split('\n').slice(1);
+                const container = document.getElementById('products-container');
+                container.innerHTML = '';
 
-                // إضافة كارد المنتج في الصفحة
-                container.innerHTML += `
-                    <div class="col-6 col-md-4">
-                        <div class="product-card shadow-sm text-center">
-                            <div class="product-img-wrapper">
-                                <img src="${image}" alt="${name}">
-                                <button class="btn-add-cart" onclick="addToCart('${name}', ${price})">إضافة للسلة</button>
+                rows.forEach(row => {
+                    const columns = row.split(',');
+                    if (columns.length >= 3) {
+                        const name = columns[0].trim();
+                        const price = columns[1].trim();
+                        const image = columns[2].trim();
+
+                        container.innerHTML += `
+                            <div class="col-6 col-md-4">
+                                <div class="product-card shadow-sm text-center">
+                                    <div class="product-img-wrapper">
+                                        <img src="${image}" alt="${name}">
+                                        <button class="btn-add-cart" onclick="addToCart('${name}', ${price})">إضافة للسلة</button>
+                                    </div>
+                                    <div class="p-3">
+                                        <h5 class="fw-bold">${name}</h5>
+                                        <p class="text-secondary">${price} EGP</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="p-3">
-                                <h5 class="fw-bold">${name}</h5>
-                                <p class="text-secondary">${price} EGP</p>
-                            </div>
-                        </div>
-                    </div>
-                `;
+                        `;
+                    }
+                });
+            } catch (error) {
+                console.error('حدث خطأ أثناء تحميل المنتجات:', error);
             }
-        });
-    } catch (error) {
-        console.error('حدث خطأ أثناء تحميل المنتجات:', error);
-    }
-}
+        }
 
-// تشغيل الدالة بمجرد تحميل الصفحة
-window.addEventListener('load', loadProductsFromSheet);
         function toggleCart() {
             document.getElementById('cartSidebar').classList.toggle('active');
             document.getElementById('overlay').style.display = 
@@ -208,7 +164,7 @@ window.addEventListener('load', loadProductsFromSheet);
 
         function addToCart(name, price) {
             cart.push({name, price});
-            total += price;
+            total += parseFloat(price);
             updateCartUI();
             alert('تم إضافة المنتج لسلتك!');
         }
@@ -217,7 +173,6 @@ window.addEventListener('load', loadProductsFromSheet);
             const list = document.getElementById('cart-items-list');
             const count = document.getElementById('cart-count');
             const totalEl = document.getElementById('cart-total');
-            
             count.innerText = cart.length;
             totalEl.innerText = total + " EGP";
             
@@ -232,35 +187,29 @@ window.addEventListener('load', loadProductsFromSheet);
                     </button>
                 </div>
             `).join('');
-        }// دالة لحذف منتج معين من السلة
-        function removeFromCart(index) {
-            total -= cart[index].price; // طرح السعر من الإجمالي
-            cart.splice(index, 1); // إزالة العنصر من المصفوفة
-            updateCartUI(); // تحديث الشكل
         }
 
-        // دالة إرسال الطلب للواتساب
+        function removeFromCart(index) {
+            total -= cart[index].price;
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
         function checkoutWhatsApp() {
             if (cart.length === 0) {
                 alert("سلتك فارغة!");
                 return;
             }
-
-            let phoneNumber = "201011590702"; // ضع رقمك هنا مفتاح الدولة ثم الرقم
+            let phoneNumber = "201011590702";
             let message = "مرحباً Eclaté Egypt، أريد طلب المنتجات التالية:%0a%0a";
-            
             cart.forEach((item, i) => {
                 message += `${i + 1}- ${item.name} (${item.price} EGP)%0a`;
             });
-
             message += `%0a*الإجمالي: ${total} EGP*`;
-            message += "%0a%0aهل المنتجات متوفرة؟";
-
-            // فتح رابط الواتساب
             window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
         }
-window.addEventListener('load', loadProductsFromSheet);
-    </script>
 
+        window.addEventListener('load', loadProductsFromSheet);
+    </script>
 </body>
 </html>
