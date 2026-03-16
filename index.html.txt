@@ -31,7 +31,7 @@
             overflow: hidden; 
             position: relative; 
             transition: 0.4s; 
-            text-align: center;
+            text-align: center; background-color: #1a1a1a !important;
         }
 
         .product-card h5 { color: #ffffff !important; margin-top: 10px; }
