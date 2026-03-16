@@ -259,6 +259,7 @@ window.addEventListener('load', loadProductsFromSheet);
             // فتح رابط الواتساب
             window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
         }
+window.addEventListener('load', loadProductsFromSheet);
     </script>
 
 </body>
