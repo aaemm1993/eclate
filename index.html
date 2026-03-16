@@ -26,7 +26,9 @@
     align-items: center; 
     gap: 12px; 
 }
-        .nav-logo-img { height: 30px; width: auto; display: block; }
+        .nav-logo-img { height: 30px; width: auto; display: block; animation: rotateContinuous 8s linear infinite; @keyframes rotateContinuous {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(360deg); } }
         .nav-logo-text { font-size: 1.5rem; font-weight: 700; letter-spacing: 2px; }
         
         .nav-right { display: flex; align-items: center; gap: 15px; }
