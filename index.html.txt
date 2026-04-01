@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <style>
         :root { --main-color: #1a1a1a; --gold-color: #c5a059; }
@@ -68,29 +70,42 @@
 
         .product-card h5 { color: #ffffff !important; margin-top: 10px; }
         .product-card p { color: var(--gold-color) !important; font-weight: bold; }
-        .product-img-wrapper { position: relative; overflow: hidden; height: 400px; }
-        .product-img-wrapper img { transition: 0.6s; object-fit: cover; height: 100%; width: 100%; }
-        .product-card:hover img { transform: scale(1.1); }
+      /* حاوية الصور الجديدة */
+        .product-img-wrapper { 
+            position: relative; 
+            height: 400px; 
+            background: #1a1a1a; 
+            overflow: hidden;
+        }
+
+        /* تنسيق الصور جوه الـ Swiper */
+        .swiper { width: 100%; height: 100%; }
+        .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* نقط التبديل السفلية */
+        .swiper-pagination-bullet { background: #c5a059 !important; opacity: 0.5; }
+        .swiper-pagination-bullet-active { opacity: 1; }
+
+        /* تأمين ظهور زرار الإضافة فوق الصور */
+        .btn-add-cart { z-index: 10 !important; }
         .btn-add-cart { 
-    position: absolute; 
-    bottom: -60px;
-    left: 0; 
-    right: 0;
-    background: transparent; 
-    color: var(--gold-color) !important; 
-    border: 1px solid var(--gold-color) !important; 
-    width: 100%; 
-    padding: 12px; 
-    transition: 0.4s; 
-    font-weight: bold;
-    text-transform: uppercase;
-    z-index: 2; 
-}
+            position: absolute; 
+            bottom: -60px; /* مستخبي تحت */
+            left: 0; 
+            right: 0; 
+            background: rgba(26, 26, 26, 0.9); /* خلفية سوداء شفافة */
+            color: var(--gold-color) !important; 
+            border: 1px solid var(--gold-color) !important; 
+            width: 100%; 
+            padding: 12px; 
+            transition: 0.4s; 
+            font-weight: bold;
+            z-index: 20 !important; /* أعلى من الصور */
+        }
 
-.product-card:hover .btn-add-cart { 
-    bottom: 15px;
-}
-
+        .product-card:hover .btn-add-cart { 
+            bottom: 0; /* يظهر لما تقف بالماوس أو تلمس الكارد */
+        }
         .whatsapp-btn { 
             position: fixed; bottom: 30px; left: 30px; background: #25d366; 
             color: white; width: 60px; height: 60px; border-radius: 50%; 
@@ -177,7 +192,7 @@
         let total = 0;
         const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQGP488InXYjOP4SbgDmeNgPapkgFyMpjWr0ShvACi56yOHNEY3VsdLP3tEHXuFXc3FRRjgaFb2QktM/pub?output=csv';
 
-        async function loadProductsFromSheet() {
+      async function loadProductsFromSheet() {
             try {
                 const response = await fetch(sheetURL);
                 const data = await response.text();
@@ -185,18 +200,29 @@
                 const container = document.getElementById('products-container');
                 container.innerHTML = '';
 
-                rows.forEach(row => {
+                rows.forEach((row, index) => {
                     const columns = row.split(',');
-                    if (columns.length >= 3) {
-                        const name = columns[0].trim();
-                        const price = columns[1].trim();
-                        const image = columns[2].trim();
+                    if (columns.length >= 7) { 
+                        const name   = columns[1].trim(); 
+                        const price  = columns[2].trim(); 
+                        const img1   = columns[3].trim();
+                        const img2   = columns[4].trim();
+                        const img3   = columns[5].trim();
+                        const img4   = columns[6].trim();
 
                         container.innerHTML += `
                             <div class="col-6 col-md-4">
                                 <div class="product-card shadow-sm text-center">
                                     <div class="product-img-wrapper">
-                                        <img src="${image}" alt="${name}">
+                                        <div class="swiper mySwiper-${index}">
+                                            <div class="swiper-wrapper">
+                                                <div class="swiper-slide"><img src="${img1}" alt="${name}"></div>
+                                                <div class="swiper-slide"><img src="${img2}" alt="${name}"></div>
+                                                <div class="swiper-slide"><img src="${img3}" alt="${name}"></div>
+                                                <div class="swiper-slide"><img src="${img4}" alt="${name}"></div>
+                                            </div>
+                                            <div class="swiper-pagination"></div>
+                                        </div>
                                         <button class="btn-add-cart" onclick="addToCart('${name}', ${price})">إضافة للسلة</button>
                                     </div>
                                     <div class="p-3">
@@ -206,13 +232,21 @@
                                 </div>
                             </div>
                         `;
+
+                        setTimeout(() => {
+                            new Swiper(`.mySwiper-${index}`, {
+                                loop: true,
+                                autoplay: { delay: 3000, disableOnInteraction: false },
+                                pagination: { el: '.swiper-pagination', clickable: true },
+                                speed: 800,
+                            });
+                        }, 100);
                     }
                 });
-            } catch (error) {
-                console.error('حدث خطأ أثناء تحميل المنتجات:', error);
+           } catch (error) {
+                console.error('حدث خطأ في تحميل المنتجات:', error);
             }
-        }
-
+        } // قفلة الدالة الأساسية
         function toggleCart() {
             document.getElementById('cartSidebar').classList.toggle('active');
             document.getElementById('overlay').style.display = 
