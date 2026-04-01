@@ -1,262 +1,311 @@
 <!DOCTYPE html>
-<html lang="ar" dir="ltr" id="main-html">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eclaté - Elegant Bags & Accessories</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Eclaté Egypt | الفخامة في كل تفصيلة</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
     <style>
-        :root { --gold: #d4af37; --black: #0a0a0a; --white: #ffffff; --bg-light: #e5e5e5; }
-        body { font-family: 'Cinzel', 'Amiri', serif; margin: 0; background: var(--bg-light); color: var(--black); transition: 0.3s; overflow-x: hidden; }
-        
-        /* تأثير اللمعان اللي عجبك */
-        .brand-shine {
-            background: linear-gradient(to right, #b29432 0%, #ffffff 50%, #b29432 100%);
-            background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: shine 3s infinite linear;
+        :root { --main-color: #1a1a1a; --gold-color: #c5a059; }
+        body { font-family: 'Cairo', sans-serif; overflow-x: hidden; background-color: #fff; }
+
+        .navbar { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .navbar-brand { 
+            font-weight: 800; 
+            letter-spacing: 3px; 
+            color: var(--gold-color) !important; /* خليناه ذهبي عشان البراند ينطق */
+            display: flex; align-items: center; gap: 10px; 
         }
-        @keyframes shine { to { background-position: 200% center; } }
 
-       /* Navbar المظبوط */
-nav { 
-    background: var(--black); 
-    padding: 12px 5%; 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    border-bottom: 1px solid var(--gold); 
-    position: sticky; 
-    top: 0; 
-    z-index: 1000; 
-}
+        .nav-link { 
+            color: var(--main-color) !important; 
+            font-weight: 600; 
+            margin: 0 10px; 
+            position: relative; 
+            transition: 0.3s;
+        }
 
-.nav-brand {  
-    display: flex;  
-    align-items: center;  
-    gap: 12px;  
-}
+        .nav-link:hover {
+            color: var(--gold-color) !important;
+        }
 
-.nav-logo-img { 
-    height: 30px; 
-    width: auto; 
-    display: block; 
-    animation: rotateContinuous 8s linear infinite; 
-}
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background-color: var(--gold-color);
+            transition: 0.3s;
+            transform: translateX(-50%);
+        }
 
-.nav-logo-text { 
-    font-size: 1.5rem; 
-    font-weight: 700; 
-    letter-spacing: 2px; 
-}
+        .nav-link:hover::after {
+            width: 100%;
+        }
 
-/* كود الحركة المستمرة - لازم يكون لوحده بره الأقواس */
-@keyframes rotateContinuous {
-    from { transform: rotateY(0deg); }
-    to { transform: rotateY(360deg); }
-}
-        
-        .nav-right { display: flex; align-items: center; gap: 15px; }
-        .nav-socials-top a { color: var(--gold); font-size: 1.1rem; transition: 0.3s; }
-        .nav-socials-top a:hover { color: var(--white); }
-        .lang-btn { color: var(--gold); background: none; border: 1px solid var(--gold); padding: 5px 12px; cursor: pointer; border-radius: 4px; font-weight: bold; font-family: inherit; }
+        .hero { 
+            height: 90vh; 
+            background-image: linear-gradient(45deg, rgba(0,0,0,0.6), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop');
+            background-position: center; background-size: cover; background-repeat: no-repeat;
+            display: flex; align-items: center; color: white; text-align: center;
+        }
 
-        /* Hero */
-        .hero { height: 75vh; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('hero.jpg'); background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: var(--white); }
-        .hero-logo { width: 160px; margin-top: -80px; margin-bottom: 30px; filter: drop-shadow(0 0 10px rgba(212,175,55,0.4));
-    animation: rotateOnce 2s ease-out forwards;
-}
+        .product-card { 
+            background: var(--main-color) !important; 
+            border: 4px solid var(--gold-color) !important; 
+            padding: 15px; 
+            overflow: hidden; 
+            position: relative; 
+            transition: 0.4s; 
+            text-align: center; background-color: #1a1a1a !important;
+        }
 
-@keyframes rotateOnce {
-    0% { transform: rotateY(0deg); opacity: 0; }
-    100% { transform: rotateY(360deg); opacity: 1; }
-}
-        .hero h1 { font-size: clamp(3rem, 10vw, 5rem); margin: 0; letter-spacing: 10px; }
+        .product-card h5 { color: #ffffff !important; margin-top: 10px; }
+        .product-card p { color: var(--gold-color) !important; font-weight: bold; }
+      /* حاوية الصور الجديدة */
+        .product-img-wrapper { 
+            position: relative; 
+            height: 400px; 
+            background: #1a1a1a; 
+            overflow: hidden;
+        }
 
-        /* Grid & Cards */
-        .container { max-width: 1200px; margin: 50px auto; padding: 0 20px; }
-        #products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px; }
-        .card { 
-    background: #111; 
-    border: 2px solid var(--gold); 
-    overflow: hidden; 
-    transition: all 0.5s ease; 
-    position: relative; 
-    opacity: 0; 
-    animation: fadeInUp 0.8s forwards;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    padding: 10px; 
-    border-radius: 0;
-}
+        /* تنسيق الصور جوه الـ Swiper */
+        .swiper { width: 100%; height: 100%; }
+        .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
 
-.card:hover { 
-    transform: translateY(-10px) scale(1.02); 
-    border-color: var(--white); 
-    box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3); 
-}
+        /* نقط التبديل السفلية */
+        .swiper-pagination-bullet { background: #c5a059 !important; opacity: 0.5; }
+        .swiper-pagination-bullet-active { opacity: 1; }
 
-.img-container { 
-    width: 100%; 
-    height: 380px; 
-    overflow: hidden; 
-    border: 1px solid var(--gold); 
-}
+        /* تأمين ظهور زرار الإضافة فوق الصور */
+        .btn-add-cart { z-index: 10 !important; }
+        .btn-add-cart { 
+            position: absolute; 
+            bottom: -60px; /* مستخبي تحت */
+            left: 0; 
+            right: 0; 
+            background: rgba(26, 26, 26, 0.9); /* خلفية سوداء شفافة */
+            color: var(--gold-color) !important; 
+            border: 1px solid var(--gold-color) !important; 
+            width: 100%; 
+            padding: 12px; 
+            transition: 0.4s; 
+            font-weight: bold;
+            z-index: 20 !important; /* أعلى من الصور */
+        }
 
-.card img { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; 
-    transition: 0.6s ease; 
-}
+        .product-card:hover .btn-add-cart { 
+            bottom: 0; /* يظهر لما تقف بالماوس أو تلمس الكارد */
+        }
+        .whatsapp-btn { 
+            position: fixed; bottom: 30px; left: 30px; background: #25d366; 
+            color: white; width: 60px; height: 60px; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; font-size: 30px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 1000; transition: 0.3s;
+        }
+        .whatsapp-btn:hover { transform: scale(1.1); color: white; }
 
-.card:hover img { transform: scale(1.1); }
-
-.card-info { padding: 20px 5px; text-align: center; }
-
-.card-info h3 { color: var(--white); font-size: 1.2rem; margin: 0; letter-spacing: 1px; }
-
-.price { 
-    color: var(--gold); 
-    font-weight: 900; 
-    font-size: 1.6rem; 
-    display: block; 
-    margin: 15px 0; 
-}
-
-.btn-add { 
-    background: transparent; 
-    color: var(--gold); 
-    border: 1px solid var(--gold); 
-    padding: 18px; 
-    width: 100%; 
-    cursor: pointer; 
-    font-weight: 700; 
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    transition: 0.3s; 
-}
-
-.btn-add:hover { background: var(--gold); color: var(--black); }
-
-        /* Cart & Messages */
-        .added-msg { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); color: var(--gold); font-weight: bold; opacity: 0; transition: 0.3s; pointer-events: none; }
-        .show-msg { opacity: 1; top: -40px; }
-        .cart-float { position: fixed; bottom: 30px; right: 30px; background: var(--gold); color: var(--black); width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.8rem; cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 2000; border: 2px solid var(--black); }
-        .cart-count { position: absolute; top: -5px; right: -5px; background: var(--black); color: var(--gold); width: 24px; height: 24px; border-radius: 50%; font-size: 0.8rem; display: flex; justify-content: center; align-items: center; border: 1px solid var(--gold); font-weight: bold; }
-
-        /* Footer المظبوط بالمسافات */
-        footer { background: var(--black); padding: 60px 20px; text-align: center; color: var(--gold); border-top: 1px solid var(--gold); }
-        .footer-socials { display: flex; justify-content: center; gap: 30px; margin-bottom: 25px; }
-        .footer-socials a { color: var(--gold); font-size: 2rem; transition: 0.3s ease; }
-        .footer-socials a:hover { color: var(--white); transform: scale(1.1); }
-        .footer-copy { opacity: 0.7; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; margin: 0; }
-
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        [dir="rtl"] { font-family: 'Amiri', serif; }
+        .cart-sidebar { 
+            position: fixed; top: 0; right: -400px; width: 350px; height: 100%; 
+            background: white; z-index: 1050; box-shadow: -5px 0 15px rgba(0,0,0,0.1); 
+            transition: 0.5s; padding: 20px; 
+        }
+        .cart-sidebar.active { right: 0; }
+        .cart-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1040; }
     </style>
 </head>
 <body>
 
-<nav>
-    <div class="nav-brand">
-        <img src="logo.png" class="nav-logo-img" onerror="this.style.display='none'">
-        <span class="nav-logo-text brand-shine">ECLATÉ</span>
-    </div>
-    <div class="nav-right">
-        <div class="nav-socials-top">
-            <a href="https://www.instagram.com/eclate_eg/" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.tiktok.com/@eclate_eg" target="_blank"><i class="fab fa-tiktok"></i></a>
+    <a href="https://wa.me/201011590702" class="whatsapp-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand fs-2" href="#">
+                <i class="fas fa-shopping-bag fs-4 shadow-sm"></i> 
+                <span>ECLATÉ</span>
+            </a>
+            <div class="d-flex align-items-center order-lg-last ms-2">
+                <a href="https://www.instagram.com/eclate_eg/" target="_blank" class="text-dark px-2"><i class="fab fa-instagram fs-4"></i></a>
+                <a href="https://www.tiktok.com/@eclate_eg" target="_blank" class="text-dark px-2"><i class="fab fa-tiktok fs-4"></i></a>
+                <a href="https://wa.me/201011590702" target="_blank" class="text-dark px-2"><i class="fab fa-whatsapp fs-4"></i></a>
+                <div class="position-relative cursor-pointer px-3" onclick="toggleCart()">
+                    <i class="fas fa-shopping-bag fs-4"></i>
+                    <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+                </div>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="#">الرئيسية</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#shop">المتجر</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#collection">كولكشن الصيف</a></li>
+                </ul>
+            </div>
         </div>
-        <button class="lang-btn" onclick="toggleLanguage()" id="lang-toggle">العربية</button>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <h1 class="display-1 fw-bold mb-4">ECLATÉ EGYPT</h1>
+            <p class="fs-4 mb-5">مجموعتنا الجديدة وصلت.. تسوق الأناقة الآن</p>
+            <a href="#shop" class="btn btn-outline-light btn-lg px-5 py-3 rounded-0">اكتشف الآن</a>
+        </div>
+    </section>
+
+    <section id="shop" class="container py-5 mt-5">
+        <h2 class="text-center fw-bold mb-5">الأكثر مبيعاً</h2>
+        <div class="row g-4" id="products-container"></div>
+    </section>
+
+    <div class="cart-overlay" id="overlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="fw-bold">سلتك</h4>
+            <i class="fas fa-times fs-4 cursor-pointer" onclick="toggleCart()"></i>
+        </div>
+        <div id="cart-items-list" class="mb-4">
+            <p class="text-center py-5">السلة فارغة حالياً</p>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-between fw-bold mb-4">
+            <span>الإجمالي:</span>
+            <span id="cart-total">0 EGP</span>
+        </div>
+        <button class="btn btn-dark w-100 py-3 rounded-0" onclick="checkoutWhatsApp()">إتمام الشراء عبر واتساب</button>
     </div>
-</nav>
 
-<section class="hero">
-    <img src="logo.png" class="hero-logo" onerror="this.style.display='none'">
-    <h1 class="brand-shine">ECLATÉ</h1>
-    <p id="hero-subtitle">Elegance That Suits You</p>
-</section>
-
-<div class="container"><div id="products-grid"></div></div>
-
-<div class="cart-float" onclick="checkout()">
-    <i class="fas fa-shopping-bag"></i>
-    <div class="cart-count" id="cart-count">0</div>
-</div>
-
-<footer>
-    <div class="footer-socials">
-        <a href="https://wa.me/201011590702" target="_blank"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://www.instagram.com/eclate_eg/" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.tiktok.com/@eclate_eg" target="_blank"><i class="fab fa-tiktok"></i></a>
-    </div>
-    <p class="footer-copy" id="footer-copy">© 2026 ECLATÉ - CURATED LUXURY. ALL RIGHTS RESERVED</p>
-</footer>
-
-<script>
-    const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQGP488InXYjOP4SbgDmeNgPapkgFyMpjWr0ShvACi56yOHNEY3VsdLP3tEHXuFXc3FRRjgaFb2QktM/pub?output=csv';
-    let currentLang = 'en';
-    let cart = [];
-
-    const trans = {
-        en: { add: "Add to Bag", added: "Added! ✨", empty: "Bag is empty!", wa: "Hello Eclaté, I'd like to order:\n", subtitle: "Elegance That Suits You" },
-        ar: { add: "إضافة للسلة", added: "تمت الإضافة! ✨", empty: "السلة فارغة!", wa: "أهلاً إيكلاتيه، أرغب في طلب:\n", subtitle: "أناقة تليق بكِ" }
-    };
-
-    function toggleLanguage() {
-        currentLang = currentLang === 'en' ? 'ar' : 'en';
-        document.getElementById('main-html').dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-        document.getElementById('lang-toggle').innerText = currentLang === 'en' ? 'العربية' : 'English';
-        document.getElementById('hero-subtitle').innerText = trans[currentLang].subtitle;
-        loadData();
-    }
-
-    function addToCart(name, price, btn) {
-        cart.push({name, price});
-        document.getElementById('cart-count').innerText = cart.length;
-        const msg = btn.parentElement.querySelector('.added-msg');
-        msg.classList.add('show-msg');
-        setTimeout(() => msg.classList.remove('show-msg'), 800);
-    }
-
-    function checkout() {
-        if (cart.length === 0) { alert(trans[currentLang].empty); return; }
-        let message = trans[currentLang].wa;
+    <script>
+        let cart = [];
         let total = 0;
-        cart.forEach((item, i) => {
-            message += `${i+1}- ${item.name} (${item.price})\n`;
-            total += parseInt(item.price.toString().replace(/[^\d]/g, ''));
-        });
-        message += `\nTotal: ${total} EGP`;
-        window.open(`https://wa.me/201011590702?text=${encodeURIComponent(message)}`, '_blank');
-    }
+        const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQGP488InXYjOP4SbgDmeNgPapkgFyMpjWr0ShvACi56yOHNEY3VsdLP3tEHXuFXc3FRRjgaFb2QktM/pub?output=csv';
 
-    async function loadData() {
-        try {
-            const res = await fetch(sheetUrl);
-            const csv = await res.text();
-            const rows = csv.split(/\r?\n/).slice(1).filter(r => r.length > 10);
-            const grid = document.getElementById('products-grid');
-            grid.innerHTML = '';
-            rows.forEach((row, i) => {
-                const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-                if (cols.length >= 4) {
-                    const [id, name, price, img] = cols.map(c => c.replace(/"/g, '').trim());
-                    grid.innerHTML += `
-                        <div class="card" style="animation-delay:${i*0.1}s">
-                            <div class="img-container"><img src="${img}" onerror="this.src='https://via.placeholder.com/400x520?text=Eclaté'"></div>
-                            <div class="card-info">
-                                <div class="added-msg">${trans[currentLang].added}</div>
-                                <h3>${name}</h3>
-                                <span class="price">${price} EGP</span>
-                                <button class="btn-add" onclick="addToCart('${name}', '${price}', this)">${trans[currentLang].add}</button>
+     async function loadProductsFromSheet() {
+            try {
+                const response = await fetch(sheetURL);
+                const data = await response.text();
+                const rows = data.split('\n').slice(1);
+                const container = document.getElementById('products-container');
+                container.innerHTML = '';
+
+                // ده الرابط الأساسي بتاعك على جيت هاب - تأكد من اسم اليوزر والريبوزيتوري صح
+                const baseURL = "https://raw.githubusercontent.com/aaemm1993/ECLATE/main/images/";
+
+                rows.forEach((row, index) => {
+                    const columns = row.split(',');
+                    if (columns.length >= 7) { 
+                        const name   = columns[1].trim(); 
+                        const price  = columns[2].trim(); 
+                        
+                        // هنا بنربط الرابط الأساسي باسم الصورة اللي في الشيت
+                        const img1   = baseURL + columns[3].trim();
+                        const img2   = baseURL + columns[4].trim();
+                        const img3   = baseURL + columns[5].trim();
+                        const img4   = baseURL + columns[6].trim();
+
+                        container.innerHTML += `
+                            <div class="col-6 col-md-4">
+                                <div class="product-card shadow-sm text-center">
+                                    <div class="product-img-wrapper">
+                                        <div class="swiper mySwiper-${index}">
+                                            <div class="swiper-wrapper">
+                                                <div class="swiper-slide"><img src="${img1}" alt="${name}"></div>
+                                                <div class="swiper-slide"><img src="${img2}" alt="${name}"></div>
+                                                <div class="swiper-slide"><img src="${img3}" alt="${name}"></div>
+                                                <div class="swiper-slide"><img src="${img4}" alt="${name}"></div>
+                                            </div>
+                                            <div class="swiper-pagination"></div>
+                                        </div>
+                                        <button class="btn-add-cart" onclick="addToCart('${name}', ${price})">إضافة للسلة</button>
+                                    </div>
+                                    <div class="p-3">
+                                        <h5 class="fw-bold">${name}</h5>
+                                        <p class="text-secondary">${price} EGP</p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>`;
-                }
+                        `;
+
+                        setTimeout(() => {
+                            new Swiper(`.mySwiper-${index}`, {
+                                loop: true,
+                                autoplay: { delay: 3000, disableOnInteraction: false },
+                                pagination: { el: '.swiper-pagination', clickable: true },
+                                speed: 800,
+                            });
+                        }, 100);
+                    }
+                });
+           } catch (error) {
+                console.error('حدث خطأ في تحميل المنتجات:', error);
+            }
+        }
+        function toggleCart() {
+            document.getElementById('cartSidebar').classList.toggle('active');
+            document.getElementById('overlay').style.display = 
+                document.getElementById('overlay').style.display === 'block' ? 'none' : 'block';
+        }
+
+        function addToCart(name, price) {
+            cart.push({name, price});
+            total += parseFloat(price);
+            updateCartUI();
+            alert('تم إضافة المنتج لسلتك!');
+        }
+
+        function updateCartUI() {
+            const list = document.getElementById('cart-items-list');
+            const count = document.getElementById('cart-count');
+            const totalEl = document.getElementById('cart-total');
+            count.innerText = cart.length;
+            totalEl.innerText = total + " EGP";
+            
+            list.innerHTML = cart.map((item, index) => `
+                <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
+                    <div>
+                        <p class="mb-0 fw-bold">${item.name}</p>
+                        <small class="text-secondary">${item.price} EGP</small>
+                    </div>
+                    <button class="btn btn-sm text-danger" onclick="removeFromCart(${index})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function removeFromCart(index) {
+            total -= cart[index].price;
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function checkoutWhatsApp() {
+            if (cart.length === 0) {
+                alert("سلتك فارغة!");
+                return;
+            }
+            let phoneNumber = "201011590702";
+            let message = "مرحباً Eclaté Egypt، أريد طلب المنتجات التالية:%0a%0a";
+            cart.forEach((item, i) => {
+                message += `${i + 1}- ${item.name} (${item.price} EGP)%0a`;
             });
-        } catch (e) { console.error("Error"); }
-    }
-    loadData();
-</script>
+            message += `%0a*الإجمالي: ${total} EGP*`;
+            window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+        }
+
+        window.addEventListener('load', loadProductsFromSheet);
+    </script>
 </body>
 </html>
