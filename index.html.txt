@@ -192,7 +192,7 @@
         let total = 0;
         const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQGP488InXYjOP4SbgDmeNgPapkgFyMpjWr0ShvACi56yOHNEY3VsdLP3tEHXuFXc3FRRjgaFb2QktM/pub?output=csv';
 
-      async function loadProductsFromSheet() {
+     async function loadProductsFromSheet() {
             try {
                 const response = await fetch(sheetURL);
                 const data = await response.text();
@@ -200,15 +200,20 @@
                 const container = document.getElementById('products-container');
                 container.innerHTML = '';
 
+                // ده الرابط الأساسي بتاعك على جيت هاب - تأكد من اسم اليوزر والريبوزيتوري صح
+                const baseURL = "https://raw.githubusercontent.com/aaemm1993/ECLATE/main/images/";
+
                 rows.forEach((row, index) => {
                     const columns = row.split(',');
                     if (columns.length >= 7) { 
                         const name   = columns[1].trim(); 
                         const price  = columns[2].trim(); 
-                        const img1   = columns[3].trim();
-                        const img2   = columns[4].trim();
-                        const img3   = columns[5].trim();
-                        const img4   = columns[6].trim();
+                        
+                        // هنا بنربط الرابط الأساسي باسم الصورة اللي في الشيت
+                        const img1   = baseURL + columns[3].trim();
+                        const img2   = baseURL + columns[4].trim();
+                        const img3   = baseURL + columns[5].trim();
+                        const img4   = baseURL + columns[6].trim();
 
                         container.innerHTML += `
                             <div class="col-6 col-md-4">
@@ -246,7 +251,7 @@
            } catch (error) {
                 console.error('حدث خطأ في تحميل المنتجات:', error);
             }
-        } // قفلة الدالة الأساسية
+        }
         function toggleCart() {
             document.getElementById('cartSidebar').classList.toggle('active');
             document.getElementById('overlay').style.display = 
